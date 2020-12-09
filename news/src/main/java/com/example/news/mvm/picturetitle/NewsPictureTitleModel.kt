@@ -6,5 +6,4 @@ class NewsPictureTitleModel(
     var newsTitle: String,
     var newsJumpUrl: String,
     var newsPictureUrl: String
-) : BaseViewModel(newsTitle, newsJumpUrl) {
-}
+) : BaseViewModel(newsTitle, newsJumpUrl)

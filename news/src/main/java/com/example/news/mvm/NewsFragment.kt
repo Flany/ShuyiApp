@@ -8,10 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.base.core.BaseViewModel
+import com.example.network.ShuyiApi
+import com.example.network.ShuyiNetworkUtil
 import com.example.news.R
 import com.example.news.databinding.XNewsFragmentBinding
 import com.example.news.mvm.picturetitle.NewsPictureTitleModel
-import com.example.news.mvm.title.NewsTitleModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class NewsFragment : Fragment() {
 
@@ -37,28 +42,20 @@ class NewsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val items = mutableListOf<BaseViewModel>()
-        items.add(NewsTitleModel("文字新闻1-main-test-mr", ""))
-        items.add(NewsPictureTitleModel("文字图片新闻1", "", ""))
-        items.add(NewsTitleModel("文字新闻2", ""))
-        items.add(NewsPictureTitleModel("文字图片新闻2", "", ""))
-        items.add(NewsTitleModel("文字新闻3", ""))
-        items.add(NewsPictureTitleModel("文字图片新闻3", "", ""))
-        items.add(NewsTitleModel("文字新闻4", ""))
-        items.add(NewsPictureTitleModel("文字图片新闻4", "", ""))
-        items.add(NewsTitleModel("文字新闻5", ""))
-        items.add(NewsPictureTitleModel("文字图片新闻5", "", ""))
-        items.add(NewsTitleModel("文字新闻6", ""))
-        items.add(NewsPictureTitleModel("文字图片新闻6", "", ""))
-        items.add(NewsTitleModel("文字新闻7", ""))
-        items.add(NewsPictureTitleModel("文字图片新闻7", "", ""))
-        items.add(NewsTitleModel("文字新闻8", ""))
-        items.add(NewsPictureTitleModel("文字图片新闻8", "", ""))
-
-        mNewsItemAdapter = NewsItemAdapter(items)
-        mBinding?.recyclerview?.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = mNewsItemAdapter
+        val uiScope = CoroutineScope(Dispatchers.Main)
+        uiScope.launch {
+            val items = mutableListOf<BaseViewModel>()
+            val result = withContext(Dispatchers.IO) {
+                ShuyiNetworkUtil.create().create(ShuyiApi::class.java).getGirls().execute()
+            }
+            result.body()?.data?.forEach {
+                items.add(NewsPictureTitleModel(it.desc!!, it.url!!, it.images!![0]))
+            }
+            mNewsItemAdapter = NewsItemAdapter(items)
+            mBinding?.recyclerview?.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = mNewsItemAdapter
+            }
         }
     }
 }
