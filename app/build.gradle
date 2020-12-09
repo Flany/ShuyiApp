@@ -33,6 +33,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    signingConfigs {
+        debug {
+            storeFile file(debugKeystorePath)
+            storePassword debugKeystorePassword
+            keyAlias debugKeyAlias
+            keyPassword debugKeyPassword
+        }
+        release {
+            storeFile file(releaseKeystorePath)
+            storePassword releaseKeystorePassword
+            keyAlias releaseKeyAlias
+            keyPassword releaseKeyPassword
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
