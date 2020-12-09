@@ -38,7 +38,7 @@ class NewsFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val items = mutableListOf<BaseViewModel>()
-        items.add(NewsTitleModel("文字新闻1", ""))
+        items.add(NewsTitleModel("文字新闻1-main", ""))
         items.add(NewsPictureTitleModel("文字图片新闻1", "", ""))
         items.add(NewsTitleModel("文字新闻2", ""))
         items.add(NewsPictureTitleModel("文字图片新闻2", "", ""))
