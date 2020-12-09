@@ -8,10 +8,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.base.core.BaseViewModel
-import com.example.network.ShuyiApi
-import com.example.network.ShuyiNetworkUtil
 import com.example.news.R
 import com.example.news.databinding.XNewsFragmentBinding
+import com.example.news.mvm.net.NewsRemoteResp
+import com.example.news.mvm.net.api.NewsApi
 import com.example.news.mvm.picturetitle.NewsPictureTitleModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +46,7 @@ class NewsFragment : Fragment() {
         uiScope.launch {
             val items = mutableListOf<BaseViewModel>()
             val result = withContext(Dispatchers.IO) {
-                ShuyiNetworkUtil.create().create(ShuyiApi::class.java).getGirls().execute()
+                NewsRemoteResp().getService(NewsApi::class.java).getNewsData().execute()
             }
             result.body()?.data?.forEach {
                 items.add(NewsPictureTitleModel(it.desc!!, it.url!!, it.images!![0]))

@@ -1,7 +1,7 @@
-package com.example.network.bean
+package com.example.news.mvm.net.bean
 
 data class NewsData(
-    var data: MutableList<GirlData>,
+    var data: MutableList<NewsItemData>,
     var page: Int,
     var page_count: Int,
     var status: Int,

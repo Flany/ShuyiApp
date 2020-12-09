@@ -1,6 +1,6 @@
-package com.example.network.bean
+package com.example.news.mvm.net.bean
 
-data class GirlData(
+data class NewsItemData(
     var _id: String? = null,
     var author: String? = null,
     var category: String? = null,
