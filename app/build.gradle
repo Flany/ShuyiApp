@@ -12,8 +12,8 @@ android {
         applicationId "com.example.shuyiapp"
         minSdkVersion 16
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 100010001
+        versionName "1.0.1"
 
         ndk {
             // 设置支持的SO库架构
@@ -25,13 +25,6 @@ android {
 
     dataBinding {
         enabled = true
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
     }
     signingConfigs {
         debug {
@@ -47,6 +40,17 @@ android {
             keyPassword releaseKeyPassword
         }
     }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -54,6 +58,28 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        if (variant.buildType.name != 'release') {
+            return
+        }
+        def oldFile = outputFileName
+        def channel = '_' + oldFile.replaceAll('app-serverproduction-', "")
+                .replaceAll('-release.apk', '')
+        def suffix = '_P'
+        def releaseApkName = 'shuyilnk' + '_v' + android.defaultConfig.versionName + '.' +
+                android.defaultConfig.versionCode + suffix + channel + "_" + getDate() + '.apk'
+        outputFileName = releaseApkName
+    }
+}
+
+static def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmm')
+    return formattedDate
 }
 
 dependencies {

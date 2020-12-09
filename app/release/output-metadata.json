@@ -10,9 +10,9 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "versionCode": 1,
-      "versionName": "1.0",
-      "outputFile": "app-release.apk"
+      "versionCode": 100010001,
+      "versionName": "1.0.1",
+      "outputFile": "shuyilnk_v1.0.1.100010001_P_app_202012091315.apk"
     }
   ]
 }
