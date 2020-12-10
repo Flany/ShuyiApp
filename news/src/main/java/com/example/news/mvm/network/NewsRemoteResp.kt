@@ -1,4 +1,4 @@
-package com.example.news.mvm.net
+package com.example.news.mvm.network
 
 import com.example.network.core.BaseNetwork
 import okhttp3.Interceptor

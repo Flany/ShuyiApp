@@ -1,6 +1,6 @@
 package com.example.network.core
 
-import com.example.common.ShuyiConfig
+import com.example.base.ShuyiConfig
 import com.example.network.interceptor.CommonRequestInterceptor
 import com.example.network.interceptor.CommonResponseInterceptor
 import okhttp3.Cache
@@ -8,7 +8,6 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 abstract class BaseNetwork : IEnvironment {
@@ -46,7 +45,6 @@ abstract class BaseNetwork : IEnvironment {
             builder.client(this)
         }
         builder.addConverterFactory(GsonConverterFactory.create())
-        builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         val retrofit = builder.build()
         mRetrofitHashMap[key] = retrofit
         return retrofit

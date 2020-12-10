@@ -1,6 +1,6 @@
 package com.example.network.interceptor
 
-import com.example.common.ShuyiConfig
+import com.example.base.ShuyiConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 

@@ -1,6 +1,6 @@
-package com.example.news.mvm.net.api
+package com.example.news.mvm.network.api
 
-import com.example.news.mvm.net.bean.NewsData
+import com.example.news.mvm.network.bean.NewsData
 import retrofit2.Call
 import retrofit2.http.GET
 

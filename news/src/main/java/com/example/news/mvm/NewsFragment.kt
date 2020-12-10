@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.base.core.BaseViewModel
 import com.example.news.R
 import com.example.news.databinding.XNewsFragmentBinding
-import com.example.news.mvm.net.NewsRemoteResp
-import com.example.news.mvm.net.api.NewsApi
+import com.example.news.mvm.network.NewsRemoteResp
+import com.example.news.mvm.network.api.NewsApi
 import com.example.news.mvm.picturetitle.NewsPictureTitleModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

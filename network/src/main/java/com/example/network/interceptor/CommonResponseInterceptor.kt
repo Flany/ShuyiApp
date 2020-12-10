@@ -1,6 +1,6 @@
 package com.example.network.interceptor
 
-import com.example.common.utils.LogUtils
+import com.example.base.utils.LogUtils
 import okhttp3.Interceptor
 import okhttp3.Response
 

@@ -1,4 +1,4 @@
-package com.example.news.mvm.net.bean
+package com.example.news.mvm.network.bean
 
 data class NewsData(
     var data: MutableList<NewsItemData>,

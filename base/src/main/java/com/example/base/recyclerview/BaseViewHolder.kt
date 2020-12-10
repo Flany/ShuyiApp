@@ -1,7 +1,9 @@
-package com.example.base.core
+package com.example.base.recyclerview
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.example.base.core.BaseViewModel
+import com.example.base.core.IBaseView
 
 class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

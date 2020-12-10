@@ -1,4 +1,4 @@
-package com.example.common
+package com.example.base
 
 import android.app.Application
 import com.tencent.bugly.crashreport.CrashReport
