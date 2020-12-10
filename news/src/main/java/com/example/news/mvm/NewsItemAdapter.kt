@@ -2,7 +2,7 @@ package com.example.news.mvm
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.base.view.BaseEmptyView
+import com.example.common.view.BaseEmptyView
 import com.example.base.recyclerview.BaseViewHolder
 import com.example.base.core.BaseViewModel
 import com.example.news.mvm.picturetitle.NewsPictureTitleModel
@@ -24,11 +24,7 @@ class NewsItemAdapter(private val items: MutableList<BaseViewModel>) :
                 BaseViewHolder(NewsTitleView(parent.context))
             }
             TYPE_PICTURE_TITLE -> {
-                BaseViewHolder(
-                    NewsPictureTitleView(
-                        parent.context
-                    )
-                )
+                BaseViewHolder(NewsPictureTitleView(parent.context))
             }
             else -> {
                 BaseViewHolder(BaseEmptyView(parent.context))

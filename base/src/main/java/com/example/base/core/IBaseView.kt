@@ -1,5 +1,5 @@
 package com.example.base.core
 
-interface IBaseView<M : BaseViewModel> {
-    fun setViewModel(viewModel: M)
+interface IBaseView<VM : BaseViewModel> {
+    fun setViewModel(viewModel: VM)
 }

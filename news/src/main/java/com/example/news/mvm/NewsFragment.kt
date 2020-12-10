@@ -42,8 +42,7 @@ class NewsFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val uiScope = CoroutineScope(Dispatchers.Main)
-        uiScope.launch {
+        CoroutineScope(Dispatchers.Main).launch {
             val items = mutableListOf<BaseViewModel>()
             val result = withContext(Dispatchers.IO) {
                 NewsRemoteResp().getService(NewsApi::class.java).getNewsData().execute()
