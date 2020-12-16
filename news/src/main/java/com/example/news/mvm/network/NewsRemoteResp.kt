@@ -10,10 +10,10 @@ class NewsRemoteResp : BaseNetwork() {
     }
 
     override fun getHostApi(): String {
-        return "https://gank.io/"
+        return "https://www.wanandroid.com/"
     }
 
     override fun getTestHostApi(): String {
-        return "https://gank.io/"
+        return "https://www.wanandroid.com/"
     }
 }

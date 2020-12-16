@@ -6,7 +6,8 @@ import com.example.base.core.BaseView
 import com.example.news.R
 import com.example.news.databinding.XNewsPictureTitleItemBinding
 
-class NewsPictureTitleView(context: Context) : BaseView<XNewsPictureTitleItemBinding, NewsPictureTitleModel>(context){
+class NewsPictureTitleView(context: Context) :
+    BaseView<XNewsPictureTitleItemBinding, NewsPictureTitleModel>(context) {
 
     override fun getLayoutId(): Int {
         return R.layout.x__news_picture_title_item
@@ -16,7 +17,7 @@ class NewsPictureTitleView(context: Context) : BaseView<XNewsPictureTitleItemBin
         mBinding?.newsPictureTitleModel = viewModel
     }
 
-    override fun onRootClick(view: View?) {
+    override fun onRootClick(view: View?, model: NewsPictureTitleModel?) {
 
     }
 }

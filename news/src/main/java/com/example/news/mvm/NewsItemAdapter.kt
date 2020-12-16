@@ -18,6 +18,12 @@ class NewsItemAdapter(private val items: MutableList<BaseViewModel>) :
         const val TYPE_PICTURE_TITLE = 1
     }
 
+    fun setData(dataList: MutableList<BaseViewModel>) {
+        this.items.clear()
+        this.items.addAll(dataList)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return when (viewType) {
             TYPE_TITLE -> {

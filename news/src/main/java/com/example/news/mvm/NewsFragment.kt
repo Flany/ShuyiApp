@@ -6,22 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.base.core.BaseViewModel
 import com.example.news.R
 import com.example.news.databinding.XNewsFragmentBinding
-import com.example.news.mvm.network.NewsRemoteResp
-import com.example.news.mvm.network.api.NewsApi
-import com.example.news.mvm.picturetitle.NewsPictureTitleModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.news.mvm.title.NewsTitleViewModel
 
 class NewsFragment : Fragment() {
 
-    private var mNewsItemAdapter: NewsItemAdapter? = null
+    private val mNewsItemAdapter by lazy {
+        NewsItemAdapter(mutableListOf())
+    }
     private var mBinding: XNewsFragmentBinding? = null
+    private val newsTitleViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(NewsTitleViewModel::class.java)
+    }
 
     companion object {
         fun launch(): NewsFragment {
@@ -40,21 +41,22 @@ class NewsFragment : Fragment() {
         return mBinding?.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mBinding?.recyclerview?.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = mNewsItemAdapter
+        }
+    }
+
     override fun onStart() {
         super.onStart()
-        CoroutineScope(Dispatchers.Main).launch {
-            val items = mutableListOf<BaseViewModel>()
-            val result = withContext(Dispatchers.IO) {
-                NewsRemoteResp().getService(NewsApi::class.java).getNewsData().execute()
-            }
-            result.body()?.data?.forEach {
-                items.add(NewsPictureTitleModel(it.desc!!, it.url!!, it.images!![0]))
-            }
-            mNewsItemAdapter = NewsItemAdapter(items)
-            mBinding?.recyclerview?.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = mNewsItemAdapter
-            }
-        }
+        newsTitleViewModel.mNewsTitleModelList.observe(this,
+            Observer<MutableList<BaseViewModel>> {
+                it?.let { data ->
+                    mNewsItemAdapter.setData(data)
+                }
+            })
+        newsTitleViewModel.getNewsList("0")
     }
 }

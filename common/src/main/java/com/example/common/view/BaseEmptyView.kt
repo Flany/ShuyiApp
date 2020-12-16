@@ -17,7 +17,7 @@ class BaseEmptyView(context: Context) : BaseView<XEmptyItemBinding, BaseViewMode
 
     }
 
-    override fun onRootClick(view: View?) {
-
+    override fun onRootClick(view: View?, model: BaseViewModel?) {
     }
+
 }

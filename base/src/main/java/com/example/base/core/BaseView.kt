@@ -37,7 +37,7 @@ abstract class BaseView<VD : ViewDataBinding, VM : BaseViewModel> :
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), this, false)
         mBinding?.root?.setOnClickListener {
-            onRootClick(it)
+            onRootClick(it, mViewModel)
         }
         addView(mBinding?.root)
     }
@@ -52,5 +52,5 @@ abstract class BaseView<VD : ViewDataBinding, VM : BaseViewModel> :
 
     abstract fun setViewModel2Binding(viewModel: VM)
 
-    abstract fun onRootClick(view: View?)
+    abstract fun onRootClick(view: View?, model: VM?)
 }

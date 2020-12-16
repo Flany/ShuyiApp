@@ -9,28 +9,54 @@
             type="com.example.news.mvm.picturetitle.NewsPictureTitleModel" />
     </data>
 
-    <LinearLayout
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp">
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:scaleType="centerInside"
-            app:loadImageUrl="@{newsPictureTitleModel.newsPictureUrl}" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:gravity="center_vertical"
-            android:text="@{newsPictureTitleModel.newsTitle}"
-            android:textColor="#000000"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
+            <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                card_view:cardBackgroundColor="@android:color/transparent"
+                card_view:cardCornerRadius="5dp"
+                card_view:cardElevation="0dp"
+                card_view:contentPadding="0dp">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="70dp"
+                    android:scaleType="fitXY"
+                    app:loadImageUrl="@{newsPictureTitleModel.newsPictureUrl}" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/item_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:text="@{newsPictureTitleModel.title}"
+                android:textColor="#303030"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="myFileName.java" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#303030" />
     </LinearLayout>
 </layout>

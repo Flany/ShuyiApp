@@ -1,3 +1,3 @@
 package com.example.base.core
 
-open class BaseViewModel(var title: String, var jumpUrl: String)
+open class BaseViewModel(open val title: String, open val linkUrl: String)

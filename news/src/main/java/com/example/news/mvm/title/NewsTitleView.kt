@@ -5,6 +5,7 @@ import android.view.View
 import com.example.base.core.BaseView
 import com.example.news.R
 import com.example.news.databinding.XNewsTitleItemBinding
+import com.example.news.mvm.NewsDetailActivity
 
 class NewsTitleView(context: Context) : BaseView<XNewsTitleItemBinding, NewsTitleModel>(context) {
 
@@ -16,7 +17,7 @@ class NewsTitleView(context: Context) : BaseView<XNewsTitleItemBinding, NewsTitl
         mBinding?.newsTitleModel = viewModel
     }
 
-    override fun onRootClick(view: View?) {
-
+    override fun onRootClick(view: View?, model: NewsTitleModel?) {
+        NewsDetailActivity.launch(context, model?.linkUrl ?: "")
     }
 }

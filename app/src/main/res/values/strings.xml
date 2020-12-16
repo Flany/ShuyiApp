@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ShuyiApp</string>
+    <string name="title_activity_hone">MainActivity</string>
+    <string name="title_home">新闻</string>
+    <string name="title_dashboard">其他</string>
+    <string name="title_notifications">消息</string>
 </resources>
