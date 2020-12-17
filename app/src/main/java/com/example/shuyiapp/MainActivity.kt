@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.news.mvm.NewsFragment
 import com.example.shuyiapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private var mBinding: ActivityMainBinding? = null
@@ -13,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val newsFragment = NewsFragment.launch()
-        supportFragmentManager.beginTransaction().add(R.id.container, newsFragment).commit()
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container, NewsFragment::class.java, null).commit()
     }
 }

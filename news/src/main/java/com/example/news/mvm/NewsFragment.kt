@@ -13,23 +13,18 @@ import com.example.base.core.BaseViewModel
 import com.example.news.R
 import com.example.news.databinding.XNewsFragmentBinding
 import com.example.news.mvm.title.NewsTitleViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewsFragment : Fragment() {
+
+    private var mBinding: XNewsFragmentBinding? = null
 
     private val mNewsItemAdapter by lazy {
         NewsItemAdapter(mutableListOf())
     }
-    private var mBinding: XNewsFragmentBinding? = null
     private val newsTitleViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(NewsTitleViewModel::class.java)
-    }
-
-    companion object {
-        fun launch(): NewsFragment {
-            val fragment = NewsFragment()
-            fragment.arguments = Bundle()
-            return fragment
-        }
+        ViewModelProvider(this).get(NewsTitleViewModel::class.java)
     }
 
     override fun onCreateView(
