@@ -2,15 +2,11 @@ package com.example.news.mvm
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import com.example.base.BaseActivity
 import com.example.news.R
 import com.example.news.databinding.XNewsDetailActivityBinding
 
-class NewsDetailActivity : AppCompatActivity() {
-
-    private var mBinding: XNewsDetailActivityBinding? = null
+class NewsDetailActivity : BaseActivity<XNewsDetailActivityBinding>() {
 
     companion object {
 
@@ -23,11 +19,17 @@ class NewsDetailActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.x__news_detail_activity)
+    override fun getLayoutId(): Int {
+        return R.layout.x__news_detail_activity
+    }
+
+    override fun initViews() {
         intent?.getStringExtra(EXTRA_LINK_URL)?.let {
             mBinding?.webview?.loadUrl(it)
         }
+    }
+
+    override fun getStatName(): String {
+        return this.javaClass.name
     }
 }

@@ -2,7 +2,7 @@ package com.example.news.mvm.picturetitle
 
 import android.content.Context
 import android.view.View
-import com.example.base.core.BaseView
+import com.example.base.recyclerview.BaseView
 import com.example.news.R
 import com.example.news.databinding.XNewsPictureTitleItemBinding
 

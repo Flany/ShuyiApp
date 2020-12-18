@@ -3,7 +3,7 @@ package com.example.news.mvm.network
 import com.example.network.core.BaseNetwork
 import okhttp3.Interceptor
 
-class NewsRemoteResp : BaseNetwork() {
+class NewsNetwork : BaseNetwork() {
 
     override fun getInterceptor(): Interceptor? {
         return null

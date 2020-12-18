@@ -1,6 +1,6 @@
 package com.example.news.mvm.picturetitle
 
-import com.example.base.core.BaseViewModel
+import com.example.base.recyclerview.BaseViewModel
 
 class NewsPictureTitleModel(
     var newsTitle: String,

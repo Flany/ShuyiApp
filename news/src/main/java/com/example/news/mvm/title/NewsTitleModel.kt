@@ -1,6 +1,6 @@
 package com.example.news.mvm.title
 
-import com.example.base.core.BaseViewModel
+import com.example.base.recyclerview.BaseViewModel
 
 class NewsTitleModel(
     val author: String,

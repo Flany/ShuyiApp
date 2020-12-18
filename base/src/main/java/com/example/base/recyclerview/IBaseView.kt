@@ -1,4 +1,4 @@
-package com.example.base.core
+package com.example.base.recyclerview
 
 interface IBaseView<VM : BaseViewModel> {
     fun setViewModel(viewModel: VM)

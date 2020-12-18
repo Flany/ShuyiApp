@@ -4,4 +4,4 @@ import com.example.base.BaseApplication
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class ShuyiLinkApp : BaseApplication()
+class SyLinkApplication : BaseApplication()

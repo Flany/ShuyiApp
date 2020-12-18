@@ -2,8 +2,8 @@ package com.example.common.view
 
 import android.content.Context
 import android.view.View
-import com.example.base.core.BaseView
-import com.example.base.core.BaseViewModel
+import com.example.base.recyclerview.BaseView
+import com.example.base.recyclerview.BaseViewModel
 import com.example.common.R
 import com.example.common.databinding.XEmptyItemBinding
 

@@ -4,14 +4,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.common.view.BaseEmptyView
 import com.example.base.recyclerview.BaseViewHolder
-import com.example.base.core.BaseViewModel
+import com.example.base.recyclerview.BaseViewModel
 import com.example.news.mvm.picturetitle.NewsPictureTitleModel
 import com.example.news.mvm.picturetitle.NewsPictureTitleView
 import com.example.news.mvm.title.NewsTitleModel
 import com.example.news.mvm.title.NewsTitleView
+import javax.inject.Inject
 
-class NewsItemAdapter(private val items: MutableList<BaseViewModel>) :
-    RecyclerView.Adapter<BaseViewHolder>() {
+class NewsItemAdapter : RecyclerView.Adapter<BaseViewHolder>() {
+
+    private val items: MutableList<BaseViewModel> = mutableListOf()
 
     companion object {
         const val TYPE_TITLE = 0
