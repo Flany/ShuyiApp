@@ -1,3 +1,7 @@
+import com.andorid.sylink.mes.plugin.BaseDependencies
+import com.andorid.sylink.mes.plugin.Hilt
+import com.andorid.sylink.mes.plugin.Versions
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -6,13 +10,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdkVersion Versions.compileSdkVersion
+    buildToolsVersion Versions.buildToolsVersion
 
     defaultConfig {
         applicationId "com.example.shuyiapp"
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
         versionCode 100010001
         versionName "1.0.1"
 
@@ -89,25 +93,24 @@ dependencies {
     implementation project(path: ':common')
     implementation project(path: ':news')
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'androidx.navigation:navigation-fragment:2.3.2'
-    implementation 'androidx.navigation:navigation-ui:2.3.2'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation BaseDependencies.kotlinStdlib
+    implementation BaseDependencies.appCompat
+    implementation BaseDependencies.constraintLayout
+    implementation BaseDependencies.ktxCore
+    implementation BaseDependencies.androidMaterial
+    testImplementation BaseDependencies.junit
+    androidTestImplementation BaseDependencies.junitExt
+    androidTestImplementation BaseDependencies.espressoCore
 
-    implementation "com.google.dagger:hilt-android:2.28-alpha"
-    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    implementation BaseDependencies.vectorDrawable
+    implementation BaseDependencies.liveData
+    implementation BaseDependencies.viewModel
+    implementation BaseDependencies.navigationFragment
+    implementation BaseDependencies.navigationUI
 
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
-    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+    implementation Hilt.hiltAndroid
+    kapt Hilt.hiltAndroidCompiler
+
+    implementation Hilt.hiltLifecycleViewModel
+    kapt Hilt.hiltLifecycleViewModelCompiler
 }
