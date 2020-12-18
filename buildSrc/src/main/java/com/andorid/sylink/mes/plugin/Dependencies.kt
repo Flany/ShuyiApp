@@ -35,6 +35,9 @@ object Versions {
     const val glide = "4.7.1"
     const val glideCompiler = "4.7.1"
 
+    //loadSir
+    const val loadSir = "1.3.8"
+
     //glide
     const val hiltAndroid = "2.28-alpha"
     const val hiltAndroidCompiler = "2.28-alpha"
@@ -70,6 +73,10 @@ object Retrofit {
     const val converterGson = "com.squareup.retrofit2:converter-gson:${Versions.converterGson}"
     const val loggingInterceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptor}"
+}
+
+object LoadSir {
+    const val loadSir = "com.kingja.loadsir:loadsir:${Versions.loadSir}"
 }
 
 object Bugly {

@@ -1,6 +1,6 @@
 package com.example.news.mvm.repository
 
-import com.example.base.recyclerview.BaseViewModel
+import com.example.base.recyclerview.BaseModel
 import com.example.news.mvm.network.NewsNetwork
 import com.example.news.mvm.network.api.NewsApi
 import com.example.news.mvm.title.NewsTitleModel
@@ -9,10 +9,10 @@ import javax.inject.Inject
 
 class NewsRepository @Inject constructor() {
 
-    suspend fun getNewsList(page: String): MutableList<BaseViewModel> {
+    suspend fun getNewsList(page: String): MutableList<BaseModel> {
         val response = NewsNetwork().getService(NewsApi::class.java).getNewsList(page)
         if (response.isSuccess()) {
-            val newsTitleModelList = mutableListOf<BaseViewModel>()
+            val newsTitleModelList = mutableListOf<BaseModel>()
             response.data.datas.forEach {
                 newsTitleModelList.add(
                     NewsTitleModel(

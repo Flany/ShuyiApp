@@ -2,7 +2,7 @@ package com.example.base
 
 import android.app.Application
 
-class ShuyiConfig {
+class SyAppConfig {
 
     companion object {
         var appVersionName: String = ""

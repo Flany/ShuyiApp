@@ -1,6 +1,6 @@
 package com.example.network.core
 
-import com.example.base.ShuyiConfig
+import com.example.base.SyAppConfig
 import com.example.network.interceptor.CommonRequestInterceptor
 import com.example.network.interceptor.CommonResponseInterceptor
 import okhttp3.Cache
@@ -24,7 +24,7 @@ abstract class BaseNetwork : IEnvironment {
     }
 
     private fun <T> initRetrofit(service: Class<T>): Retrofit {
-        val baseUrl = if (!ShuyiConfig.isDebug) {
+        val baseUrl = if (!SyAppConfig.isDebug) {
             getHostApi()
         } else {
             getTestHostApi()
@@ -53,7 +53,7 @@ abstract class BaseNetwork : IEnvironment {
     private fun initOkHttpClient() {
         if (mOkHttpClient == null) {
             val builder = OkHttpClient.Builder()
-            ShuyiConfig.applicationContext?.apply {
+            SyAppConfig.applicationContext?.apply {
                 builder.cache(Cache(cacheDir, CACHE_SIZE))
             }
             getInterceptor()?.apply {
@@ -61,7 +61,7 @@ abstract class BaseNetwork : IEnvironment {
             }
             builder.addInterceptor(CommonRequestInterceptor())
             builder.addInterceptor(CommonResponseInterceptor())
-            if (ShuyiConfig.isDebug) {
+            if (SyAppConfig.isDebug) {
                 val httpLoggingInterceptor = HttpLoggingInterceptor()
                 httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
                 builder.addInterceptor(httpLoggingInterceptor)

@@ -1,5 +1,6 @@
 import com.andorid.sylink.mes.plugin.BaseDependencies
 import com.andorid.sylink.mes.plugin.Bugly
+import com.andorid.sylink.mes.plugin.LoadSir
 import com.andorid.sylink.mes.plugin.Versions
 
 plugins {
@@ -45,6 +46,8 @@ dependencies {
     implementation BaseDependencies.kotlinStdlib
     implementation BaseDependencies.ktxCore
     implementation BaseDependencies.androidMaterial
+    implementation BaseDependencies.viewModel
+    implementation LoadSir.loadSir
 
     //bugly
     implementation Bugly.bugly

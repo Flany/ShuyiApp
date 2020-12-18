@@ -5,13 +5,13 @@ import androidx.recyclerview.widget.RecyclerView
 
 class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private var view: IBaseView<BaseViewModel>? = null
+    private var view: IBaseView<BaseModel>? = null
 
     init {
-        view = itemView as IBaseView<BaseViewModel>
+        view = itemView as IBaseView<BaseModel>
     }
 
-    fun bindData(viewModel: BaseViewModel) {
-        view?.setViewModel(viewModel)
+    fun bindData(model: BaseModel) {
+        view?.setViewModel(model)
     }
 }
