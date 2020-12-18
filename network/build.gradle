@@ -39,10 +39,6 @@ dependencies {
 
     implementation project(path: ':base')
 
-    //kotlin
-    implementation BaseDependencies.kotlinStdlib
-    implementation BaseDependencies.ktxCore
-
     //retrofit
     api Retrofit.retrofit
     implementation Retrofit.converterGson
