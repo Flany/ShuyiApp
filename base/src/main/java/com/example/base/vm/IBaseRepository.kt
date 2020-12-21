@@ -1,7 +1,7 @@
 package com.example.base.vm
 
 import com.example.base.recyclerview.BaseData
-import com.example.base.vm.data.BaseResult
+import com.example.base.vm.data.RepositoryResult
 import com.example.base.vm.data.PageResult
 import kotlinx.coroutines.flow.Flow
 
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface IBaseRepository {
 
-    suspend fun loadData(): Flow<BaseResult<MutableList<BaseData>>>
+    suspend fun loadData(): Flow<RepositoryResult<MutableList<BaseData>>>
 
-    suspend fun loadDataByPage(page: Int): Flow<BaseResult<PageResult<BaseData>>>
+    suspend fun loadDataByPage(page: Int): Flow<RepositoryResult<PageResult<BaseData>>>
 }

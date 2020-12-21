@@ -10,8 +10,4 @@ class SyAppConfig {
         var isDebug: Boolean = false
         var applicationContext: Application? = null
     }
-
-    fun init(context: Application) {
-        applicationContext = context
-    }
 }

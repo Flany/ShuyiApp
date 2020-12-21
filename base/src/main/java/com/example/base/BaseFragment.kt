@@ -38,7 +38,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
         mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         LogUtils.d(getStatName(), "onCreateView.")
         mLoadService = LoadSir.getDefault().register(mBinding?.root) {
-            mViewModel.loadData()
+            mViewModel.loadDataByPage()
         } as LoadService<View>?
         lifecycle.addObserver(mViewModel)
         return mLoadService?.loadLayout

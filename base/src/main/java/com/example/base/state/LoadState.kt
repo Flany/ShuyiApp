@@ -9,6 +9,7 @@ enum class LoadState {
     LOADING,
     SUCCESS,
     FAILED,
+    EMPTY,
     LOAD_MORE_LOADING,
     LOAD_MORE_FAILED
 }
