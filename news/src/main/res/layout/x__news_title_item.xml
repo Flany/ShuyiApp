@@ -6,7 +6,7 @@
 
         <variable
             name="newsTitleModel"
-            type="com.example.news.mvm.title.NewsTitleModel" />
+            type="com.example.news.mvm.title.NewsTitleData" />
     </data>
 
     <androidx.cardview.widget.CardView

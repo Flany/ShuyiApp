@@ -10,8 +10,8 @@ object Versions {
 
     //
     const val kotlinVersion = "1.4.20"
-    const val kotlinCoroutinesCore = "1.2.1"
-    const val kotlinCoroutinesAndroid = "1.2.1"
+    const val kotlinCoroutinesCore = "1.4.1"
+    const val kotlinCoroutinesAndroid = "1.4.1"
     const val ktxCore = "1.3.2"
     const val appCompat = "1.2.0"
     const val androidMaterial = "1.2.1"
@@ -37,6 +37,9 @@ object Versions {
 
     //loadSir
     const val loadSir = "1.3.8"
+
+    //smartRefresh
+    const val smartRefresh = "2.0.1"
 
     //glide
     const val hiltAndroid = "2.28-alpha"
@@ -77,6 +80,12 @@ object Retrofit {
 
 object LoadSir {
     const val loadSir = "com.kingja.loadsir:loadsir:${Versions.loadSir}"
+}
+
+object SmartRefresh {
+    const val refreshKernel = "com.scwang.smart:refresh-layout-kernel:${Versions.smartRefresh}"
+    const val refreshHeader = "com.scwang.smart:refresh-header-classics:${Versions.smartRefresh}"
+    const val refreshFooter = "com.scwang.smart:refresh-footer-classics:${Versions.smartRefresh}"
 }
 
 object Bugly {

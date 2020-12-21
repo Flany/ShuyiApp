@@ -6,7 +6,8 @@
 
     </data>
 
-    <LinearLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F3F3F3"
@@ -16,8 +17,8 @@
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    </LinearLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </layout>

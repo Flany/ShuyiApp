@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
-abstract class BaseView<VD : ViewDataBinding, VM : BaseModel> :
+abstract class BaseView<VD : ViewDataBinding, VM : BaseData> :
     LinearLayout, IBaseView<VM> {
 
     var mBinding: VD? = null

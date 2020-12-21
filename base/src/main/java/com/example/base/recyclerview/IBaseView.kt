@@ -1,5 +1,5 @@
 package com.example.base.recyclerview
 
-interface IBaseView<VM : BaseModel> {
+interface IBaseView<VM : BaseData> {
     fun setViewModel(viewModel: VM)
 }

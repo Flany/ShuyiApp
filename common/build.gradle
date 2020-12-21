@@ -1,5 +1,6 @@
 import com.andorid.sylink.mes.plugin.BaseDependencies
 import com.andorid.sylink.mes.plugin.Glide
+import com.andorid.sylink.mes.plugin.SmartRefresh
 import com.andorid.sylink.mes.plugin.Versions
 
 plugins {
@@ -47,6 +48,10 @@ dependencies {
 
     implementation BaseDependencies.kotlinStdlib
     implementation BaseDependencies.ktxCore
+
+    api SmartRefresh.refreshKernel
+    api SmartRefresh.refreshHeader
+    api SmartRefresh.refreshFooter
 
     //glide
     implementation Glide.glide

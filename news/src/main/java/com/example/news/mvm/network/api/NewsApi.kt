@@ -8,5 +8,5 @@ import retrofit2.http.Path
 interface NewsApi {
 
     @GET("article/list/{path}/json")
-    suspend fun getNewsList(@Path("path") path: String): BaseNewsResponse<ArticlePageData>
+    suspend fun getNewsList(@Path("path") path: Int): BaseNewsResponse<ArticlePageData>
 }

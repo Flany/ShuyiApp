@@ -9,13 +9,17 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.base.calback.ErrorCallback
 import com.example.base.calback.LoadingCallback
+import com.example.base.recyclerview.BaseData
 import com.example.base.state.LoadState
 import com.example.base.utils.LogUtils
 import com.example.base.vm.BaseViewModel
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment() {
 
     protected var mBinding: VD? = null
@@ -25,6 +29,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
         ViewModelProvider(this).get(getViewModelClass())
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +40,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
         mLoadService = LoadSir.getDefault().register(mBinding?.root) {
             mViewModel.loadData()
         } as LoadService<View>?
+        lifecycle.addObserver(mViewModel)
         return mLoadService?.loadLayout
     }
 
@@ -50,7 +56,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
                     mLoadService?.showCallback(LoadingCallback::class.java)
                 }
                 LoadState.FAILED -> {
-
+                    mLoadService?.showCallback(ErrorCallback::class.java)
                 }
                 LoadState.LOAD_MORE_LOADING -> {
 
@@ -61,6 +67,7 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
                 else -> {
                 }
             }
+            onStatusResponded()
         })
     }
 
@@ -69,6 +76,10 @@ abstract class BaseFragment<VD : ViewDataBinding, VM : BaseViewModel> : Fragment
     abstract fun initViews()
 
     abstract fun getViewModelClass(): Class<VM>
+
+    abstract fun onDataResponded(data: MutableList<BaseData>)
+
+    abstract fun onStatusResponded()
 
     abstract fun getStatName(): String
 
