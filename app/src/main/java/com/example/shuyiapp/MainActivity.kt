@@ -1,19 +1,23 @@
 package com.example.shuyiapp
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import androidx.databinding.DataBindingUtil
+import com.example.base.BaseActivity
 import com.example.news.mvm.NewsFragment
 import com.example.shuyiapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private var mBinding: ActivityMainBinding? = null
+    override fun initViews() {
+        supportFragmentManager.beginTransaction()
+            .add(R.id.container, NewsFragment(), null).commit()
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val newsFragment = NewsFragment.launch()
-        supportFragmentManager.beginTransaction().add(R.id.container, newsFragment).commit()
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
+    }
+
+    override fun getStatName(): String {
+        return javaClass.name
     }
 }

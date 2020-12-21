@@ -1,60 +1,65 @@
 package com.example.news.mvm
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.base.core.BaseViewModel
+import androidx.lifecycle.Observer
+import com.example.base.BaseFragment
+import com.example.base.recyclerview.BaseData
 import com.example.news.R
 import com.example.news.databinding.XNewsFragmentBinding
-import com.example.news.mvm.network.NewsRemoteResp
-import com.example.news.mvm.network.api.NewsApi
-import com.example.news.mvm.picturetitle.NewsPictureTitleModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.news.mvm.title.NewsItemAdapter
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.ClassicsHeader
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class NewsFragment : Fragment() {
+@AndroidEntryPoint
+@ExperimentalCoroutinesApi
+class NewsFragment : BaseFragment<XNewsFragmentBinding, NewsTitleViewModel>() {
 
-    private var mNewsItemAdapter: NewsItemAdapter? = null
-    private var mBinding: XNewsFragmentBinding? = null
+    private val mNewsItemAdapter by lazy {
+        NewsItemAdapter()
+    }
 
-    companion object {
-        fun launch(): NewsFragment {
-            val fragment = NewsFragment()
-            fragment.arguments = Bundle()
-            return fragment
+    override fun getLayoutId(): Int {
+        return R.layout.x__news_fragment
+    }
+
+    override fun initViews() {
+        mBinding?.recyclerview?.adapter = mNewsItemAdapter
+        mBinding?.refreshLayout?.apply {
+            setEnableLoadMore(true)
+            setRefreshHeader(ClassicsHeader(context))
+            setRefreshFooter(ClassicsFooter(context))
+            setOnRefreshListener {
+                mViewModel.loadData()
+            }
+            setOnLoadMoreListener {
+                mViewModel.loadDataByPage()
+            }
         }
+        mViewModel.data.observe(this, Observer<MutableList<BaseData>> {
+            it?.apply {
+                mNewsItemAdapter.setData(this)
+            }
+        })
+        mViewModel.loadData()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.x__news_fragment, container, false)
-        return mBinding?.root
+    override fun getStatName(): String {
+        return javaClass.name
     }
 
-    override fun onStart() {
-        super.onStart()
-        CoroutineScope(Dispatchers.Main).launch {
-            val items = mutableListOf<BaseViewModel>()
-            val result = withContext(Dispatchers.IO) {
-                NewsRemoteResp().getService(NewsApi::class.java).getNewsData().execute()
-            }
-            result.body()?.data?.forEach {
-                items.add(NewsPictureTitleModel(it.desc!!, it.url!!, it.images!![0]))
-            }
-            mNewsItemAdapter = NewsItemAdapter(items)
-            mBinding?.recyclerview?.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = mNewsItemAdapter
-            }
+    override fun getViewModelClass(): Class<NewsTitleViewModel> {
+        return NewsTitleViewModel::class.java
+    }
+
+    override fun onDataResponded(data: MutableList<BaseData>) {
+        mNewsItemAdapter.setData(data)
+    }
+
+    override fun onStatusResponded() {
+        mBinding?.refreshLayout?.apply {
+            finishRefresh()
+            finishLoadMore()
         }
     }
 }
