@@ -41,6 +41,7 @@ abstract class BaseViewModel(
                 mCurrentPageNumber = initPageNumber
             }
             isLoading = true
+            loadState.postValue(LoadState.LOADING)
             load()
         }
     }
@@ -54,7 +55,6 @@ abstract class BaseViewModel(
     }
 
     private fun load() = viewModelScope.launch {
-        loadState.postValue(LoadState.LOADING)
         repository.loadDataByPage(mCurrentPageNumber)
             .onStart {
                 // 在调用 flow 请求数据之前，做一些准备工作，例如显示正在加载数据的按钮
