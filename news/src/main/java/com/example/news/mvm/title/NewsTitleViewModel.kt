@@ -9,7 +9,7 @@ import com.example.base.vm.BaseViewModel
 import com.example.news.mvm.repository.NewsRepository
 import kotlinx.coroutines.launch
 
-class NewsTitleViewModel @ViewModelInject constructor(val repository: NewsRepository) :
+class NewsTitleViewModel @ViewModelInject constructor(private val repository: NewsRepository) :
     BaseViewModel() {
 
     val mNewsTitleModelList = MutableLiveData<MutableList<BaseModel>>()
