@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.base.recyclerview.BaseData
 import com.example.base.state.LoadState
-import com.example.base.vm.data.BaseResult
+import com.example.base.vm.data.RepositoryResult
 import com.example.base.vm.data.doFailure
 import com.example.base.vm.data.doSuccess
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -41,6 +41,7 @@ abstract class BaseViewModel(
                 mCurrentPageNumber = initPageNumber
             }
             isLoading = true
+            loadState.postValue(LoadState.LOADING)
             load()
         }
     }
@@ -60,7 +61,7 @@ abstract class BaseViewModel(
             }
             .catch {
                 // 捕获上游出现的异常
-                emit(BaseResult.Failure(Throwable("xxx")))
+                emit(RepositoryResult.Failure(Throwable("xxx")))
             }
             .onCompletion {
                 // 请求完成
@@ -72,16 +73,22 @@ abstract class BaseViewModel(
                     loadState.postValue(LoadState.FAILED)
                 }
                 result.doSuccess { pageResult ->
-                    if (isPagingModel) {
-                        if (mCurrentPageNumber == initPageNumber) {
-                            data.postValue(pageResult.data)
+                    val value = pageResult.data
+                    if (!isPagingModel) {
+                        if (value.isNullOrEmpty()) {
+                            loadState.postValue(LoadState.EMPTY)
                         } else {
-                            val newResult = data.value ?: mutableListOf()
-                            newResult.addAll(pageResult.data)
-                            data.postValue(newResult)
+                            data.postValue(pageResult.data)
+                            loadState.postValue(LoadState.SUCCESS)
                         }
+                        return@doSuccess
+                    }
+                    if (mCurrentPageNumber == initPageNumber) {
+                        data.postValue(value)
                     } else {
-                        data.postValue(pageResult.data)
+                        val newResult = data.value ?: mutableListOf()
+                        newResult.addAll(value)
+                        data.postValue(newResult)
                     }
                     loadState.postValue(LoadState.SUCCESS)
                 }

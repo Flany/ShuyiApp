@@ -6,7 +6,7 @@ import com.kingja.loadsir.callback.Callback
 /**
  * @author: hec@shuyilink.com
  * @date:   2020/12/18
- * @since:
+ * @since:  空数据的视图
  */
 class EmptyCallback : Callback() {
 

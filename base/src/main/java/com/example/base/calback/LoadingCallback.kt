@@ -9,7 +9,7 @@ import com.kingja.loadsir.callback.Callback
 /**
  * @author: hec@shuyilink.com
  * @date:   2020/12/18
- * @since:
+ * @since:  加载的视图
  */
 class LoadingCallback : Callback() {
 

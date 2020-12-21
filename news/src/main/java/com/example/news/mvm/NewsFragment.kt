@@ -3,6 +3,7 @@ package com.example.news.mvm
 import androidx.lifecycle.Observer
 import com.example.base.BaseFragment
 import com.example.base.recyclerview.BaseData
+import com.example.base.utils.ToastUtils
 import com.example.news.R
 import com.example.news.databinding.XNewsFragmentBinding
 import com.example.news.mvm.title.NewsItemAdapter
@@ -40,6 +41,9 @@ class NewsFragment : BaseFragment<XNewsFragmentBinding, NewsTitleViewModel>() {
             it?.apply {
                 mNewsItemAdapter.setData(this)
             }
+        })
+        mViewModel.failure.observe(this, Observer {
+            ToastUtils.toast(it)
         })
         mViewModel.loadData()
     }

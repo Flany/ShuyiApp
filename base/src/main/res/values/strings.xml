@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="str_loading">正在拼命加载中</string>
+    <string name="str_empty">暂时没有数据</string>
+    <string name="str_error">网络异常，点击重试</string>
 </resources>
