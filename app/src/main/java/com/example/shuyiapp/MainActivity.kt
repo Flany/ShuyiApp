@@ -5,8 +5,10 @@ import com.example.base.utils.ToastUtils
 import com.example.news.mvm.NewsFragment
 import com.example.shuyiapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private var backPressTime = 0L

@@ -7,7 +7,6 @@ import com.example.base.calback.LoadingCallback
 import com.kingja.loadsir.core.LoadSir
 import com.tencent.bugly.crashreport.CrashReport
 
-
 open class BaseApplication : Application() {
 
     override fun onCreate() {

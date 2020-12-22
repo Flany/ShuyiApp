@@ -59,9 +59,9 @@ abstract class BaseViewModel(
             .onStart {
                 // 在调用 flow 请求数据之前，做一些准备工作，例如显示正在加载数据的按钮
             }
-            .catch {
+            .catch { cause ->
                 // 捕获上游出现的异常
-                emit(RepositoryResult.Failure(Throwable("xxx")))
+                emit(RepositoryResult.Failure(cause))
             }
             .onCompletion {
                 // 请求完成
