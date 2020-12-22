@@ -13,11 +13,11 @@ class BaseEmptyView(context: Context) : BaseView<XEmptyItemBinding, BaseData>(co
         return R.layout.x__empty_item
     }
 
-    override fun setViewModel2Binding(data: BaseData) {
+    override fun setViewModel2Binding(viewModel: BaseData) {
 
     }
 
-    override fun onRootClick(view: View?, data: BaseData?) {
+    override fun onRootClick(view: View?, model: BaseData?) {
     }
 
 }
