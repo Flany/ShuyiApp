@@ -1,3 +1,4 @@
+include ':scan'
 include ':network'
 include ':news'
 include ':common'
