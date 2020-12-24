@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import com.android.scan.data.BaseScanData
 import com.android.scan.databinding.ActivityScanBinding
-import com.android.scan.product.ScanType
 import com.example.base.utils.LogUtils
 
 /**
@@ -47,9 +46,5 @@ class ScanActivity : BaseScanActivity<ActivityScanBinding>() {
             mBinding?.etName?.setText(data.id.toString())
             mBinding?.etDepartment?.setText(data.title)
         }
-    }
-
-    override fun initScanType(): ScanType {
-        return ScanType.HONEYWELL
     }
 }
