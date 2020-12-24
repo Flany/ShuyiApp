@@ -4,7 +4,6 @@ import androidx.databinding.ViewDataBinding
 import com.android.scan.callback.IScanCallback
 import com.android.scan.product.BaseScan
 import com.android.scan.product.ScanFactory
-import com.android.scan.product.ScanType
 import com.example.base.BaseActivity
 
 /**
@@ -16,11 +15,9 @@ abstract class BaseScanActivity<V : ViewDataBinding> : BaseActivity<V>(), IScanC
 
     private var mScan: BaseScan? = null
 
-    abstract fun initScanType(): ScanType
-
     override fun onStart() {
         super.onStart()
-        mScan = ScanFactory.create(initScanType())
+        mScan = ScanFactory.create(ScanConfig.scanType)
         mScan?.let {
             lifecycle.addObserver(it)
             it.addScanCallback(this)

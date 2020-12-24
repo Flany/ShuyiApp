@@ -19,7 +19,9 @@ class HoneyWellScan private constructor() : BaseScan(), BarcodeReader.BarcodeLis
     private var manager: AidcManager? = null
 
     companion object {
-        val instance = HoneyWellScan()
+        val instance: HoneyWellScan by lazy {
+            HoneyWellScan()
+        }
     }
 
     override fun registerScan(context: Context?) {

@@ -5,7 +5,8 @@ package com.android.scan.product
  * @date:   2020/12/24
  * @since:
  */
-enum class ScanType {
-    HONEYWELL,
-    MOBYDATA
+enum class ScanType(val model: String) {
+    Honeywell("Honeywell"),
+    Mobydata("Mobydata"),
+    Others("Others")
 }

@@ -58,4 +58,5 @@ dependencies {
     //scan
     //honeywell
     api files('libs/DataCollection.aar')
+    implementation files('libs/MobydataSdk1.0.jar')
 }
