@@ -3,6 +3,7 @@ package com.android.scan
 import androidx.databinding.ViewDataBinding
 import com.android.scan.callback.IScanCallback
 import com.android.scan.product.BaseScan
+import com.android.scan.product.ScanConfig
 import com.android.scan.product.ScanFactory
 import com.example.base.BaseActivity
 

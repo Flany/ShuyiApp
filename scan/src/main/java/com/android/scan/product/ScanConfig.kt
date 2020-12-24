@@ -1,7 +1,6 @@
-package com.android.scan
+package com.android.scan.product
 
 import android.os.Build
-import com.android.scan.product.ScanType
 import java.lang.Exception
 
 /**
