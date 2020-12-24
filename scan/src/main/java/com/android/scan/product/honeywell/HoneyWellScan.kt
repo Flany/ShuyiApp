@@ -1,9 +1,11 @@
-package com.example.base.utils
+package com.android.scan.product.honeywell
 
 import android.content.Context
-import com.honeywell.aidc.AidcManager
-import com.honeywell.aidc.BarcodeReader
-import com.honeywell.aidc.InvalidScannerNameException
+import com.android.scan.data.BaseScanData
+import com.android.scan.product.BaseScan
+import com.example.base.utils.LogUtils
+import com.google.gson.Gson
+import com.honeywell.aidc.*
 import java.util.*
 
 /**
@@ -11,17 +13,17 @@ import java.util.*
  * @date:   2020/12/23
  * @since:
  */
-class ScanUtil private constructor() {
+class HoneyWellScan private constructor() : BaseScan(), BarcodeReader.BarcodeListener {
 
     var barcodeReader: BarcodeReader? = null
     private var manager: AidcManager? = null
 
     companion object {
-        val instance = ScanUtil()
+        val instance = HoneyWellScan()
     }
 
-    fun register(context: Context) {
-        if (manager != null && barcodeReader != null) {
+    override fun registerScan(context: Context?) {
+        if (context == null || (manager != null && barcodeReader != null)) {
             return
         }
         AidcManager.create(context) { manager ->
@@ -31,16 +33,33 @@ class ScanUtil private constructor() {
                 val properties = initProperties()
                 // Apply the settings
                 // Apply the settings
+                barcodeReader?.addBarcodeListener(this)
                 barcodeReader?.setProperties(properties)
             } catch (e: InvalidScannerNameException) {
-                LogUtils.d("ScanUtil", "e: ${e.message}")
+                LogUtils.d(TAG, "e: ${e.message}")
             } catch (e: Exception) {
-                LogUtils.d("ScanUtil", "e: ${e.message}")
+                LogUtils.d(TAG, "e: ${e.message}")
             }
         }
     }
 
-    fun unRegister() {
+    override fun onResume() {
+        super.onResume()
+        kotlin.runCatching {
+            LogUtils.d(TAG, "onResume==================")
+            barcodeReader?.claim()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        kotlin.runCatching {
+            LogUtils.d(TAG, "onPause==================")
+            barcodeReader?.release()
+        }
+    }
+
+    override fun unRegisterScan() {
         barcodeReader?.close()
         manager?.close()
     }
@@ -71,5 +90,16 @@ class ScanUtil private constructor() {
         // Enable bad read response
         properties[BarcodeReader.PROPERTY_NOTIFICATION_BAD_READ_ENABLED] = true
         return properties
+    }
+
+    override fun onFailureEvent(p0: BarcodeFailureEvent?) {
+        LogUtils.d(TAG, "扫码失败")
+        scanCallback?.onScanFailure(Throwable("扫码失败"))
+    }
+
+    override fun onBarcodeEvent(p0: BarcodeReadEvent?) {
+        val data = p0?.barcodeData
+        LogUtils.d(TAG, "扫码成功：$data")
+        scanCallback?.onScanSuccess(Gson().fromJson(data, BaseScanData::class.java))
     }
 }

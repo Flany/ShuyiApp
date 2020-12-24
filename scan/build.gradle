@@ -54,4 +54,8 @@ dependencies {
     implementation BaseDependencies.constraintLayout
     implementation BaseDependencies.viewModel
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    //scan
+    //honeywell
+    api files('libs/DataCollection.aar')
 }

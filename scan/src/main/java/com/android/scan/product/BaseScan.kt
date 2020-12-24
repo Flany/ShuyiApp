@@ -1,0 +1,45 @@
+package com.android.scan.product
+
+import android.content.Context
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import com.android.scan.callback.IScanCallback
+import com.example.base.utils.LogUtils
+
+/**
+ * @author: hec@shuyilink.com
+ * @date:   2020/12/24
+ * @since:
+ */
+abstract class BaseScan : LifecycleObserver {
+
+    companion object {
+        const val TAG = "======scan======="
+    }
+
+    protected var scanCallback: IScanCallback? = null
+
+    abstract fun registerScan(context: Context?)
+
+    abstract fun unRegisterScan()
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    open fun onResume() {
+        LogUtils.d(TAG, "扫码-onResume")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    open fun onPause() {
+        LogUtils.d(TAG, "扫码-onPause")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy() {
+        unRegisterScan()
+    }
+
+    fun addScanCallback(scanCallback: IScanCallback) {
+        this.scanCallback = scanCallback
+    }
+}

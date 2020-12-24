@@ -5,14 +5,8 @@ import android.content.Context
 import android.content.Intent
 import com.android.scan.data.BaseScanData
 import com.android.scan.databinding.ActivityScanBinding
-import com.example.base.utils.ScanUtil
-import com.example.base.BaseScanActivity
+import com.android.scan.product.ScanType
 import com.example.base.utils.LogUtils
-import com.example.base.utils.ToastUtils
-import com.google.gson.Gson
-import com.honeywell.aidc.BarcodeFailureEvent
-import com.honeywell.aidc.BarcodeReadEvent
-import org.json.JSONObject
 
 /**
  * @author: hec@shuyilink.com
@@ -32,12 +26,7 @@ class ScanActivity : BaseScanActivity<ActivityScanBinding>() {
     }
 
     override fun initViews() {
-        val barcodeReader = ScanUtil.instance.barcodeReader
-        if (barcodeReader == null) {
-            ToastUtils.toast("扫码还未初始化完成，请稍后")
-            return
-        }
-        ScanUtil.instance.barcodeReader?.addBarcodeListener(this)
+
     }
 
     override fun getLayoutId(): Int {
@@ -48,19 +37,19 @@ class ScanActivity : BaseScanActivity<ActivityScanBinding>() {
         return javaClass.name
     }
 
-    override fun onFailureEvent(event: BarcodeFailureEvent?) {
-        LogUtils.d("扫码失败", "失败原因：${Gson().toJson(event)}")
+    override fun onScanFailure(throwable: Throwable) {
+        LogUtils.d("扫码失败", "失败原因：${throwable.message}")
     }
 
-    override fun onBarcodeEvent(event: BarcodeReadEvent?) {
-        val gson = Gson()
-        LogUtils.d("扫码成功", "结果数据：${gson.toJson(event)}")
+    override fun onScanSuccess(data: BaseScanData) {
+        LogUtils.d("扫码成功", "结果数据：${data.toString()}")
         runOnUiThread {
-            event?.barcodeData?.let {
-                val data = gson.fromJson(it, BaseScanData::class.java)
-                mBinding?.etName?.setText(data.id.toString())
-                mBinding?.etDepartment?.setText(data.title)
-            }
+            mBinding?.etName?.setText(data.id.toString())
+            mBinding?.etDepartment?.setText(data.title)
         }
+    }
+
+    override fun initScanType(): ScanType {
+        return ScanType.HONEYWELL
     }
 }
