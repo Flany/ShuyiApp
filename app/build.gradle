@@ -19,6 +19,7 @@ android {
         targetSdkVersion Versions.targetSdkVersion
         versionCode 100010001
         versionName "1.0.1"
+        multiDexEnabled true
 
         ndk {
             // 设置支持的SO库架构
@@ -92,6 +93,8 @@ dependencies {
     implementation project(path: ':network')
     implementation project(path: ':common')
     implementation project(path: ':news')
+    implementation project(path: ':scan')
+    implementation "androidx.multidex:multidex:2.0.1"
 
     implementation BaseDependencies.kotlinStdlib
     implementation BaseDependencies.appCompat

@@ -1,7 +1,4 @@
 import com.andorid.sylink.mes.plugin.BaseDependencies
-import com.andorid.sylink.mes.plugin.Bugly
-import com.andorid.sylink.mes.plugin.LoadSir
-import com.andorid.sylink.mes.plugin.Versions
 
 plugins {
     id 'com.android.library'
@@ -10,21 +7,23 @@ plugins {
 }
 
 android {
-    compileSdkVersion Versions.compileSdkVersion
-    buildToolsVersion Versions.buildToolsVersion
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
-        minSdkVersion Versions.minSdkVersion
-        targetSdkVersion Versions.targetSdkVersion
+        minSdkVersion 16
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            multiDexEnabled = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -35,7 +34,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
     dataBinding {
         enabled = true
     }
@@ -43,13 +41,21 @@ android {
 
 dependencies {
 
+    implementation project(path: ':base')
+    implementation project(path: ':network')
+    implementation project(path: ':common')
+
     implementation BaseDependencies.kotlinStdlib
+    implementation BaseDependencies.kotlinCoroutinesCore
+    implementation BaseDependencies.kotlinCoroutinesAndroid
+    implementation BaseDependencies.appCompat
     implementation BaseDependencies.ktxCore
     implementation BaseDependencies.androidMaterial
+    implementation BaseDependencies.constraintLayout
     implementation BaseDependencies.viewModel
-    implementation LoadSir.loadSir
+    implementation 'com.google.code.gson:gson:2.8.6'
 
-    //bugly
-    implementation Bugly.bugly
-
+    //scan
+    //honeywell
+    api files('libs/DataCollection.aar')
 }

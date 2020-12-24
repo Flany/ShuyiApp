@@ -10,8 +10,8 @@ object Versions {
 
     //
     const val kotlinVersion = "1.4.20"
-    const val kotlinCoroutinesCore = "1.4.1"
-    const val kotlinCoroutinesAndroid = "1.4.1"
+    const val kotlinCoroutinesCore = "1.4.2"
+    const val kotlinCoroutinesAndroid = "1.4.2"
     const val ktxCore = "1.3.2"
     const val appCompat = "1.2.0"
     const val androidMaterial = "1.2.1"
@@ -27,13 +27,13 @@ object Versions {
     const val navigationUI = "2.3.2"
 
     //retrofit
-    const val retrofit = "2.6.0"
-    const val converterGson = "2.6.0"
+    const val retrofit = "2.9.0"
+    const val converterGson = "2.9.0"
     const val loggingInterceptor = "3.9.0"
 
     //glide
-    const val glide = "4.7.1"
-    const val glideCompiler = "4.7.1"
+    const val glide = "4.11.0"
+    const val glideCompiler = "4.11.0"
 
     //loadSir
     const val loadSir = "1.3.8"
