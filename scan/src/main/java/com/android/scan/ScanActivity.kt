@@ -1,14 +1,17 @@
 package com.android.scan
 
-import android.widget.Toast
+import android.app.Application
+import android.content.Context
+import android.content.Intent
+import com.android.scan.data.BaseScanData
 import com.android.scan.databinding.ActivityScanBinding
-import com.android.scan.utils.ScanUtil
-import com.example.base.BaseActivity
+import com.example.base.utils.ScanUtil
+import com.example.base.BaseScanActivity
 import com.example.base.utils.LogUtils
+import com.example.base.utils.ToastUtils
+import com.google.gson.Gson
 import com.honeywell.aidc.BarcodeFailureEvent
 import com.honeywell.aidc.BarcodeReadEvent
-import com.honeywell.aidc.BarcodeReader.BarcodeListener
-import com.honeywell.aidc.ScannerUnavailableException
 import org.json.JSONObject
 
 /**
@@ -16,10 +19,25 @@ import org.json.JSONObject
  * @date:   2020/12/23
  * @since:
  */
-class ScanActivity : BaseActivity<ActivityScanBinding>(), BarcodeListener {
+class ScanActivity : BaseScanActivity<ActivityScanBinding>() {
+
+    companion object {
+        fun launch(context: Context) {
+            val intent = Intent(context, ScanActivity::class.java)
+            if (context is Application) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context.startActivity(intent)
+        }
+    }
 
     override fun initViews() {
-        ScanUtil.instance.register(this, this)
+        val barcodeReader = ScanUtil.instance.barcodeReader
+        if (barcodeReader == null) {
+            ToastUtils.toast("扫码还未初始化完成，请稍后")
+            return
+        }
+        ScanUtil.instance.barcodeReader?.addBarcodeListener(this)
     }
 
     override fun getLayoutId(): Int {
@@ -30,41 +48,18 @@ class ScanActivity : BaseActivity<ActivityScanBinding>(), BarcodeListener {
         return javaClass.name
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (ScanUtil.instance.barcodeReader != null) {
-            try {
-                ScanUtil.instance.barcodeReader?.claim()
-            } catch (e: ScannerUnavailableException) {
-                e.printStackTrace()
-                Toast.makeText(this, "Scanner unavailable", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        if (ScanUtil.instance.barcodeReader != null) {
-            // release the scanner claim so we don't get any scanner
-            // notifications while paused.
-            ScanUtil.instance.barcodeReader?.release()
-        }
-    }
-
     override fun onFailureEvent(event: BarcodeFailureEvent?) {
-        LogUtils.d("ScanActivity", event.toString())
+        LogUtils.d("扫码失败", "失败原因：${Gson().toJson(event)}")
     }
 
     override fun onBarcodeEvent(event: BarcodeReadEvent?) {
-        LogUtils.d("ScanActivity", event.toString())
+        val gson = Gson()
+        LogUtils.d("扫码成功", "结果数据：${gson.toJson(event)}")
         runOnUiThread {
-            event?.barcodeData?.apply {
-                val json = JSONObject(this)
-                val test = json.optString("test")
-                val author = json.optString("author")
-                LogUtils.d("ScanActivity", "test:${test}, author:${author}")
-                mBinding?.etName?.setText(test)
-                mBinding?.etDepartment?.setText(author)
+            event?.barcodeData?.let {
+                val data = gson.fromJson(it, BaseScanData::class.java)
+                mBinding?.etName?.setText(data.id.toString())
+                mBinding?.etDepartment?.setText(data.title)
             }
         }
     }

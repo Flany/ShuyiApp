@@ -51,4 +51,5 @@ dependencies {
 
     //bugly
     implementation Bugly.bugly
+    api files('libs/DataCollection.aar')
 }

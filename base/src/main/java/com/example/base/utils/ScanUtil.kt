@@ -1,4 +1,4 @@
-package com.android.scan.utils
+package com.example.base.utils
 
 import android.content.Context
 import com.honeywell.aidc.AidcManager
@@ -20,7 +20,7 @@ class ScanUtil private constructor() {
         val instance = ScanUtil()
     }
 
-    fun register(context: Context, barcodeListener: BarcodeReader.BarcodeListener? = null) {
+    fun register(context: Context) {
         if (manager != null && barcodeReader != null) {
             return
         }
@@ -28,13 +28,14 @@ class ScanUtil private constructor() {
             this.manager = manager
             try {
                 barcodeReader = manager.createBarcodeReader()
-                barcodeReader?.addBarcodeListener(barcodeListener)
                 val properties = initProperties()
                 // Apply the settings
                 // Apply the settings
                 barcodeReader?.setProperties(properties)
             } catch (e: InvalidScannerNameException) {
+                LogUtils.d("ScanUtil", "e: ${e.message}")
             } catch (e: Exception) {
+                LogUtils.d("ScanUtil", "e: ${e.message}")
             }
         }
     }

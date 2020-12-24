@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:gravity="center"
-            android:text="姓名："
+            android:text="ID："
             app:layout_constraintEnd_toStartOf="@id/etName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:gravity="center"
+            android:hint="请输入ID"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvName"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,16 +36,17 @@
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:gravity="center"
-            android:text="部门："
+            android:text="标题："
             app:layout_constraintEnd_toStartOf="@id/etDepartment"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvName" />
 
-        <TextView
+        <EditText
             android:id="@+id/etDepartment"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:gravity="center"
+            android:hint="请输入标题"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvDepartment"
             app:layout_constraintTop_toBottomOf="@id/etName" />

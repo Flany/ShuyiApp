@@ -53,6 +53,5 @@ dependencies {
     implementation BaseDependencies.androidMaterial
     implementation BaseDependencies.constraintLayout
     implementation BaseDependencies.viewModel
-    implementation files('libs/DataCollection.aar')
-    implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

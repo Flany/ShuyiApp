@@ -7,6 +7,7 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class SyLinkApplication : BaseApplication() {
+
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         MultiDex.install(this)
