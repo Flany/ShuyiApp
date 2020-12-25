@@ -10,7 +10,7 @@ import com.google.gson.Gson
 /**
  * @author: hec@shuyilink.com
  * @date:   2020/12/24
- * @since:
+ * @since:  MobyData的扫码类
  */
 class MobyDataScan private constructor() : BaseScan() {
 
@@ -53,7 +53,7 @@ class MobyDataScan private constructor() : BaseScan() {
                 addTimeoutListener(timeoutListener)
             }
         } catch (localException: Exception) {
-
+            LogUtils.d(TAG, "registerScan exception, ${localException.message}")
         }
     }
 

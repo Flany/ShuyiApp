@@ -6,7 +6,7 @@ import java.lang.Exception
 /**
  * @author: hec@shuyilink.com
  * @date:   2020/12/24
- * @since:
+ * @since:  扫码配置类，主要是初始化扫码的类型，Honeywell, Mobydata, Others
  */
 class ScanConfig private constructor() {
 
