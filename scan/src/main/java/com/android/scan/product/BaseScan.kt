@@ -10,7 +10,7 @@ import com.example.base.utils.LogUtils
 /**
  * @author: hec@shuyilink.com
  * @date:   2020/12/24
- * @since:
+ * @since:  扫码的基类，各类设备的扫码需要实现此类
  */
 abstract class BaseScan : LifecycleObserver {
 

@@ -11,7 +11,7 @@ import java.util.*
 /**
  * @author: hec@shuyilink.com
  * @date:   2020/12/23
- * @since:
+ * @since:  HoneyWell的扫码类
  */
 class HoneyWellScan private constructor() : BaseScan(), BarcodeReader.BarcodeListener {
 
@@ -48,7 +48,6 @@ class HoneyWellScan private constructor() : BaseScan(), BarcodeReader.BarcodeLis
     override fun onResume() {
         super.onResume()
         kotlin.runCatching {
-            LogUtils.d(TAG, "onResume==================")
             barcodeReader?.claim()
         }
     }
@@ -56,7 +55,6 @@ class HoneyWellScan private constructor() : BaseScan(), BarcodeReader.BarcodeLis
     override fun onPause() {
         super.onPause()
         kotlin.runCatching {
-            LogUtils.d(TAG, "onPause==================")
             barcodeReader?.release()
         }
     }
