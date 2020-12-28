@@ -2,7 +2,7 @@ package com.example.shuyiapp
 
 import android.content.Context
 import androidx.multidex.MultiDex
-import com.android.scan.product.ScanConfig
+import com.android.scan.plugin.ScanConfig
 import com.example.base.BaseApplication
 import dagger.hilt.android.HiltAndroidApp
 

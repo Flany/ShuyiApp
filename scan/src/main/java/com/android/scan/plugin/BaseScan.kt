@@ -1,4 +1,4 @@
-package com.android.scan.product
+package com.android.scan.plugin
 
 import android.content.Context
 import androidx.lifecycle.Lifecycle

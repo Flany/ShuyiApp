@@ -1,7 +1,7 @@
-package com.android.scan.product.others
+package com.android.scan.plugin.others
 
 import android.content.Context
-import com.android.scan.product.BaseScan
+import com.android.scan.plugin.BaseScan
 
 /**
  * @author: hec@shuyilink.com
