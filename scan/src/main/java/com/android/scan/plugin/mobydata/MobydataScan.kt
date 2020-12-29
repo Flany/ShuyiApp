@@ -70,23 +70,23 @@ class MobydataScan private constructor() : BaseScan() {
         }
     }
 
-    override fun startScanBroadcast(context: Context) {
+    override fun startScanBroadcast() {
 
     }
 
-    override fun stopScanBroadcast(context: Context) {
+    override fun stopScanBroadcast() {
 
     }
 
-    override fun registerScanReceiver(context: Context) {
+    override fun registerScanReceiver() {
 
     }
 
-    override fun unregisterScanReceiver(context: Context) {
+    override fun unregisterScanReceiver() {
 
     }
 
-    override fun onReceiveScanBroadcast(context: Context, intent: Intent) {
+    override fun onReceiveScanBroadcast(intent: Intent) {
 
     }
 

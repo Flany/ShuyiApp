@@ -26,10 +26,10 @@ abstract class BaseScan : LifecycleObserver {
     protected val broadcastReceiver: BroadcastReceiver by lazy {
         object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                if (context == null || intent == null) {
+                if (intent == null) {
                     return
                 }
-                onReceiveScanBroadcast(context, intent)
+                onReceiveScanBroadcast(intent)
             }
         }
     }
@@ -52,27 +52,27 @@ abstract class BaseScan : LifecycleObserver {
     /**
      * 开启扫码的广播
      */
-    abstract fun startScanBroadcast(context: Context)
+    abstract fun startScanBroadcast()
 
     /**
      * 停止扫码的广播
      */
-    abstract fun stopScanBroadcast(context: Context)
+    abstract fun stopScanBroadcast()
 
     /**
      * 注册扫码的广播接收者
      */
-    abstract fun registerScanReceiver(context: Context)
+    abstract fun registerScanReceiver()
 
     /**
      * 注销扫码的广播接收者
      */
-    abstract fun unregisterScanReceiver(context: Context)
+    abstract fun unregisterScanReceiver()
 
     /**
      * 处理扫码的广播的事件
      */
-    abstract fun onReceiveScanBroadcast(context: Context, intent: Intent)
+    abstract fun onReceiveScanBroadcast(intent: Intent)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     open fun onResume() {

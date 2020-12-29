@@ -19,11 +19,11 @@ abstract class BaseScanActivity<V : ViewDataBinding> : BaseActivity<V>(), IScanC
     }
 
     fun startScanBroadcastReceiver() {
-        mScan.startScanBroadcast(this)
+        mScan.startScanBroadcast()
     }
 
     fun stopScanBroadcastReceiver() {
-        mScan.stopScanBroadcast(this)
+        mScan.stopScanBroadcast()
     }
 
     override fun onStart() {
@@ -34,11 +34,11 @@ abstract class BaseScanActivity<V : ViewDataBinding> : BaseActivity<V>(), IScanC
 
     override fun onResume() {
         super.onResume()
-        mScan.registerScanReceiver(this)
+        mScan.registerScanReceiver()
     }
 
     override fun onStop() {
         super.onStop()
-        mScan.unregisterScanReceiver(this)
+        mScan.unregisterScanReceiver()
     }
 }

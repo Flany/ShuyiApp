@@ -1,7 +1,6 @@
 package com.android.scan.vm
 
-import com.android.scan.repository.ScanRepository
-import com.example.base.vm.BaseViewModel
+import android.app.Application
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
@@ -10,6 +9,5 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * @since:
  */
 @ExperimentalCoroutinesApi
-class ScanViewModel(private val scanRepository: ScanRepository) :
-    BaseViewModel(repository = scanRepository) {
+class ScanViewModel(private val scanApp: Application) : BaseScanViewModel(scanApp) {
 }
