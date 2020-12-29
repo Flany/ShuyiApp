@@ -1,8 +1,10 @@
 package com.android.scan
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.view.MotionEvent
 import com.android.scan.data.BaseScanData
 import com.android.scan.databinding.ActivityScanBinding
 import com.example.base.utils.LogUtils
@@ -24,8 +26,19 @@ class ScanActivity : BaseScanActivity<ActivityScanBinding>() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun initViews() {
-
+        mBinding?.btnScan?.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    startScanBroadcastReceiver()
+                }
+                MotionEvent.ACTION_UP -> {
+                    stopScanBroadcastReceiver()
+                }
+            }
+            true
+        }
     }
 
     override fun getLayoutId(): Int {
@@ -41,7 +54,6 @@ class ScanActivity : BaseScanActivity<ActivityScanBinding>() {
     }
 
     override fun onScanSuccess(data: BaseScanData) {
-        LogUtils.d("扫码成功", "结果数据：${data.toString()}")
         runOnUiThread {
             mBinding?.etName?.setText(data.id.toString())
             mBinding?.etDepartment?.setText(data.title)

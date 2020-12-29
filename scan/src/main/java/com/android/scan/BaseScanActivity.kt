@@ -14,14 +14,31 @@ import com.example.base.BaseActivity
  */
 abstract class BaseScanActivity<V : ViewDataBinding> : BaseActivity<V>(), IScanCallback {
 
-    private var mScan: BaseScan? = null
+    private val mScan: BaseScan by lazy {
+        ScanFactory.create(ScanConfig.scanType)
+    }
+
+    fun startScanBroadcastReceiver() {
+        mScan.startScanBroadcast(this)
+    }
+
+    fun stopScanBroadcastReceiver() {
+        mScan.stopScanBroadcast(this)
+    }
 
     override fun onStart() {
         super.onStart()
-        mScan = ScanFactory.create(ScanConfig.scanType)
-        mScan?.let {
-            lifecycle.addObserver(it)
-            it.addScanCallback(this)
-        }
+        lifecycle.addObserver(mScan)
+        mScan.addScanCallback(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mScan.registerScanReceiver(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mScan.unregisterScanReceiver(this)
     }
 }

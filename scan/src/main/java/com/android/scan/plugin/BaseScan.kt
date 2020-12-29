@@ -1,6 +1,8 @@
 package com.android.scan.plugin
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -18,11 +20,59 @@ abstract class BaseScan : LifecycleObserver {
         const val TAG = "======scan======="
     }
 
+    /**
+     * 扫码的广播接收者
+     */
+    protected val broadcastReceiver: BroadcastReceiver by lazy {
+        object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (context == null || intent == null) {
+                    return
+                }
+                onReceiveScanBroadcast(context, intent)
+            }
+        }
+    }
+
+    /**
+     * 扫码的回调事件
+     */
     protected var scanCallback: IScanCallback? = null
 
-    abstract fun registerScan(context: Context?)
+    /**
+     * SDK注册
+     */
+    abstract fun registerScan(context: Context)
 
-    abstract fun unRegisterScan()
+    /**
+     * SDK注销
+     */
+    abstract fun unregisterScan()
+
+    /**
+     * 开启扫码的广播
+     */
+    abstract fun startScanBroadcast(context: Context)
+
+    /**
+     * 停止扫码的广播
+     */
+    abstract fun stopScanBroadcast(context: Context)
+
+    /**
+     * 注册扫码的广播接收者
+     */
+    abstract fun registerScanReceiver(context: Context)
+
+    /**
+     * 注销扫码的广播接收者
+     */
+    abstract fun unregisterScanReceiver(context: Context)
+
+    /**
+     * 处理扫码的广播的事件
+     */
+    abstract fun onReceiveScanBroadcast(context: Context, intent: Intent)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     open fun onResume() {
@@ -36,9 +86,12 @@ abstract class BaseScan : LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
-        unRegisterScan()
+        unregisterScan()
     }
 
+    /**
+     * 添加扫码的回调事件
+     */
     fun addScanCallback(scanCallback: IScanCallback) {
         this.scanCallback = scanCallback
     }
