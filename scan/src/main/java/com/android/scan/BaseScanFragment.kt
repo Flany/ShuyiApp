@@ -5,25 +5,29 @@ import com.android.scan.callback.IScanCallback
 import com.android.scan.plugin.BaseScan
 import com.android.scan.plugin.ScanConfig
 import com.android.scan.plugin.ScanFactory
-import com.example.base.BaseActivity
+import com.example.base.BaseFragment
+import com.example.base.vm.BaseViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * @author: hec@shuyilink.com
- * @date:   2020/12/24
- * @since:  扫码的Activity的基类
+ * @date:   2020/12/29
+ * @since:
  */
-abstract class BaseScanActivity<V : ViewDataBinding> : BaseActivity<V>(), IScanCallback {
+@ExperimentalCoroutinesApi
+abstract class BaseScanFragment<VD : ViewDataBinding, VM : BaseViewModel> : BaseFragment<VD, VM>(),
+    IScanCallback {
 
     private val mScan: BaseScan by lazy {
         ScanFactory.create(ScanConfig.scanType)
     }
 
     fun startScanBroadcastReceiver() {
-        mScan.startScanBroadcast(this)
+        mScan.startScanBroadcast(requireContext())
     }
 
     fun stopScanBroadcastReceiver() {
-        mScan.stopScanBroadcast(this)
+        mScan.stopScanBroadcast(requireContext())
     }
 
     override fun onStart() {
@@ -34,11 +38,11 @@ abstract class BaseScanActivity<V : ViewDataBinding> : BaseActivity<V>(), IScanC
 
     override fun onResume() {
         super.onResume()
-        mScan.registerScanReceiver(this)
+        mScan.registerScanReceiver(requireContext())
     }
 
     override fun onStop() {
         super.onStop()
-        mScan.unregisterScanReceiver(this)
+        mScan.unregisterScanReceiver(requireContext())
     }
 }
