@@ -1,4 +1,5 @@
 import com.andorid.sylink.mes.plugin.BaseDependencies
+import com.andorid.sylink.mes.plugin.Gson
 
 plugins {
     id 'com.android.library'
@@ -53,7 +54,7 @@ dependencies {
     implementation BaseDependencies.androidMaterial
     implementation BaseDependencies.constraintLayout
     implementation BaseDependencies.viewModel
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation Gson.gson
 
     //scan
     //honeywell

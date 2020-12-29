@@ -41,6 +41,9 @@ object Versions {
     //smartRefresh
     const val smartRefresh = "2.0.1"
 
+    //
+    const val gson = "2.8.6"
+
     //glide
     const val hiltAndroid = "2.28-alpha"
     const val hiltAndroidCompiler = "2.28-alpha"
@@ -86,6 +89,10 @@ object SmartRefresh {
     const val refreshKernel = "com.scwang.smart:refresh-layout-kernel:${Versions.smartRefresh}"
     const val refreshHeader = "com.scwang.smart:refresh-header-classics:${Versions.smartRefresh}"
     const val refreshFooter = "com.scwang.smart:refresh-footer-classics:${Versions.smartRefresh}"
+}
+
+object Gson {
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
 }
 
 object Bugly {
