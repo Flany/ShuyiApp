@@ -31,14 +31,4 @@ abstract class BaseScanActivity<V : ViewDataBinding> : BaseActivity<V>(), IScanC
         lifecycle.addObserver(mScan)
         mScan.addScanCallback(this)
     }
-
-    override fun onResume() {
-        super.onResume()
-        mScan.registerScanReceiver()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mScan.unregisterScanReceiver()
-    }
 }

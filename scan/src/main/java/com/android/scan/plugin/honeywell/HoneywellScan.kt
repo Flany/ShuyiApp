@@ -1,6 +1,5 @@
 package com.android.scan.plugin.honeywell
 
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
@@ -28,11 +27,11 @@ class HoneywellScan private constructor() : BaseScan(), BarcodeReader.BarcodeLis
         }
     }
 
-    override fun registerScan(context: Context) {
+    override fun registerScan() {
         if (manager != null && barcodeReader != null) {
             return
         }
-        AidcManager.create(context) { manager ->
+        AidcManager.create(SyAppConfig.applicationContext) { manager ->
             this.manager = manager
             try {
                 barcodeReader = manager.createBarcodeReader()

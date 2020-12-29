@@ -1,6 +1,5 @@
 package com.android.scan.plugin.mobydata
 
-import android.content.Context
 import android.content.Intent
 import com.android.scan.data.BaseScanData
 import com.android.scan.plugin.BaseScan
@@ -28,7 +27,7 @@ class MobydataScan private constructor() : BaseScan() {
         }
     }
 
-    override fun registerScan(context: Context) {
+    override fun registerScan() {
         try {
             val localBarcodeManager = BarcodeManager()
             localBarcodeManager.isInitialized

@@ -3,8 +3,6 @@ package com.example.shuyiapp
 import android.view.Menu
 import android.view.MenuItem
 import com.android.scan.ScanActivity
-import com.android.scan.plugin.ScanConfig
-import com.android.scan.plugin.ScanFactory
 import com.example.base.BaseActivity
 import com.example.base.utils.ToastUtils
 import com.example.news.mvm.NewsFragment
@@ -19,9 +17,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var backPressTime = 0L
 
     override fun initViews() {
-        val scan = ScanFactory.create(ScanConfig.scanType)
-        scan.registerScan(this)
-        lifecycle.addObserver(scan)
         supportFragmentManager.beginTransaction()
             .add(R.id.container, NewsFragment(), null).commit()
     }
