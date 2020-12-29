@@ -1,8 +1,8 @@
-package com.android.scan.product
+package com.android.scan.plugin
 
-import com.android.scan.product.honeywell.HoneyWellScan
-import com.android.scan.product.mobydata.MobyDataScan
-import com.android.scan.product.others.OthersScan
+import com.android.scan.plugin.honeywell.HoneyWellScan
+import com.android.scan.plugin.mobydata.MobyDataScan
+import com.android.scan.plugin.others.OthersScan
 
 /**
  * @author: hec@shuyilink.com

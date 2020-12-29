@@ -1,8 +1,8 @@
-package com.android.scan.product.mobydata
+package com.android.scan.plugin.mobydata
 
 import android.content.Context
 import com.android.scan.data.BaseScanData
-import com.android.scan.product.BaseScan
+import com.android.scan.plugin.BaseScan
 import com.datalogic.decode.*
 import com.example.base.utils.LogUtils
 import com.google.gson.Gson

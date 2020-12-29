@@ -1,8 +1,8 @@
-package com.android.scan.product.honeywell
+package com.android.scan.plugin.honeywell
 
 import android.content.Context
 import com.android.scan.data.BaseScanData
-import com.android.scan.product.BaseScan
+import com.android.scan.plugin.BaseScan
 import com.example.base.utils.LogUtils
 import com.google.gson.Gson
 import com.honeywell.aidc.*
