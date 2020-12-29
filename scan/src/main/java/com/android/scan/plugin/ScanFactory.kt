@@ -1,7 +1,7 @@
 package com.android.scan.plugin
 
-import com.android.scan.plugin.honeywell.HoneyWellScan
-import com.android.scan.plugin.mobydata.MobyDataScan
+import com.android.scan.plugin.honeywell.HoneywellScan
+import com.android.scan.plugin.mobydata.MobydataScan
 import com.android.scan.plugin.others.OthersScan
 
 /**
@@ -14,10 +14,10 @@ object ScanFactory {
     fun create(scanType: ScanType): BaseScan {
         return when (scanType) {
             ScanType.Honeywell -> {
-                HoneyWellScan.instance
+                HoneywellScan.INSTANCE
             }
             ScanType.Mobydata -> {
-                MobyDataScan.instance
+                MobydataScan.INSTANCE
             }
             ScanType.Others -> {
                 OthersScan.instance

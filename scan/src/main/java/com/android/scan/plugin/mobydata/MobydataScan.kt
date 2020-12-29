@@ -1,6 +1,7 @@
 package com.android.scan.plugin.mobydata
 
 import android.content.Context
+import android.content.Intent
 import com.android.scan.data.BaseScanData
 import com.android.scan.plugin.BaseScan
 import com.datalogic.decode.*
@@ -12,7 +13,7 @@ import com.google.gson.Gson
  * @date:   2020/12/24
  * @since:  MobyData的扫码类
  */
-class MobyDataScan private constructor() : BaseScan() {
+class MobydataScan private constructor() : BaseScan() {
 
     private var mBarcodeManager: BarcodeManager? = null
 
@@ -22,12 +23,12 @@ class MobyDataScan private constructor() : BaseScan() {
     private var timeoutListener: TimeoutListener? = null
 
     companion object {
-        val instance: MobyDataScan by lazy {
-            MobyDataScan()
+        val INSTANCE: MobydataScan by lazy {
+            MobydataScan()
         }
     }
 
-    override fun registerScan(context: Context?) {
+    override fun registerScan(context: Context) {
         try {
             val localBarcodeManager = BarcodeManager()
             localBarcodeManager.isInitialized
@@ -57,7 +58,7 @@ class MobyDataScan private constructor() : BaseScan() {
         }
     }
 
-    override fun unRegisterScan() {
+    override fun unregisterScan() {
         mBarcodeManager?.apply {
             stopDecode()
             removeReadListener(readListener)
@@ -67,6 +68,26 @@ class MobyDataScan private constructor() : BaseScan() {
             release()
             mBarcodeManager = null
         }
+    }
+
+    override fun startScanBroadcast(context: Context) {
+
+    }
+
+    override fun stopScanBroadcast(context: Context) {
+
+    }
+
+    override fun registerScanReceiver(context: Context) {
+
+    }
+
+    override fun unregisterScanReceiver(context: Context) {
+
+    }
+
+    override fun onReceiveScanBroadcast(context: Context, intent: Intent) {
+
     }
 
     override fun onResume() {
