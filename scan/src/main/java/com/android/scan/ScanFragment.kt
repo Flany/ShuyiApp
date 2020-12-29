@@ -1,9 +1,11 @@
 package com.android.scan
 
+import android.annotation.SuppressLint
+import android.view.MotionEvent
 import com.android.scan.data.BaseScanData
+import com.android.scan.data.ScanException
 import com.android.scan.databinding.FragmentScanBinding
-import com.android.scan.vm.ScanViewModel
-import com.example.base.recyclerview.BaseData
+import com.example.base.utils.LogUtils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
@@ -12,37 +14,37 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * @since:
  */
 @ExperimentalCoroutinesApi
-class ScanFragment : BaseScanFragment<FragmentScanBinding, ScanViewModel>() {
+class ScanFragment : BaseScanFragment<FragmentScanBinding>() {
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_scan
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun initViews() {
-
+        mBinding?.btnScan?.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    startScan()
+                }
+                MotionEvent.ACTION_UP -> {
+                    stopScan()
+                }
+            }
+            true
+        }
     }
 
-    override fun getViewModelClass(): Class<ScanViewModel> {
-        return ScanViewModel::class.java
+    override fun onReceiverScanData(scanData: BaseScanData) {
+        mBinding?.etName?.setText(scanData.id.toString())
+        mBinding?.etDepartment?.setText(scanData.title)
     }
 
-    override fun onDataResponded(data: MutableList<BaseData>) {
-
-    }
-
-    override fun onStatusResponded() {
-
+    override fun onReceiverScanException(scanException: ScanException) {
+        LogUtils.d("扫码失败", "失败原因：${scanException.message}")
     }
 
     override fun getStatName(): String {
         return ScanFragment::class.java.name
-    }
-
-    override fun onScanFailure(throwable: Throwable) {
-
-    }
-
-    override fun onScanSuccess(data: BaseScanData) {
-
     }
 }

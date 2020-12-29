@@ -42,7 +42,7 @@ abstract class BaseScan : LifecycleObserver {
     /**
      * SDK注册
      */
-    abstract fun registerScan(context: Context)
+    abstract fun registerScan()
 
     /**
      * SDK注销
@@ -74,6 +74,13 @@ abstract class BaseScan : LifecycleObserver {
      */
     abstract fun onReceiveScanBroadcast(intent: Intent)
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun onStart() {
+        LogUtils.d(TAG, "扫码-onStart")
+        registerScan()
+        registerScanReceiver()
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     open fun onResume() {
         LogUtils.d(TAG, "扫码-onResume")
@@ -84,9 +91,16 @@ abstract class BaseScan : LifecycleObserver {
         LogUtils.d(TAG, "扫码-onPause")
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun onStop() {
+        LogUtils.d(TAG, "扫码-onStop")
+        unregisterScanReceiver()
+        unregisterScan()
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
-        unregisterScan()
+        LogUtils.d(TAG, "扫码-onDestroy")
     }
 
     /**

@@ -7,10 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.android.scan.callback.IScanCallback
-import com.android.scan.vm.BaseScanViewModel
-import com.example.base.recyclerview.BaseData
+import com.android.scan.data.BaseScanData
+import com.android.scan.data.ScanException
+import com.android.scan.plugin.BaseScan
+import com.android.scan.plugin.ScanConfig
+import com.android.scan.plugin.ScanFactory
+import com.android.scan.vm.ScanViewModel
 import com.example.base.utils.LogUtils
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -20,16 +24,18 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * @since:
  */
 @ExperimentalCoroutinesApi
-abstract class BaseScanFragment<VD : ViewDataBinding, VM : BaseScanViewModel> : Fragment(),
-    IScanCallback {
+abstract class BaseScanFragment<VD : ViewDataBinding> : Fragment() {
 
     protected var mBinding: VD? = null
 
-    protected val mViewModel: VM by lazy {
-        ViewModelProvider(this).get(getViewModelClass())
+    private val mViewModel: ScanViewModel by lazy {
+        ViewModelProvider(this).get(ScanViewModel::class.java)
     }
 
-    @Suppress("UNCHECKED_CAST")
+    private val mScan: BaseScan by lazy {
+        ScanFactory.create(ScanConfig.scanType)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,25 +44,39 @@ abstract class BaseScanFragment<VD : ViewDataBinding, VM : BaseScanViewModel> : 
         mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         LogUtils.d(getStatName(), "onCreateView.")
         lifecycle.addObserver(mViewModel)
+        lifecycle.addObserver(mScan)
+        mScan.addScanCallback(mViewModel)
         return mBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+        mViewModel.scanData.observe(viewLifecycleOwner, Observer {
+            onReceiverScanData(it)
+        })
+        mViewModel.failure.observe(viewLifecycleOwner, Observer {
+            onReceiverScanException(it)
+        })
     }
 
     abstract fun getLayoutId(): Int
 
     abstract fun initViews()
 
-    abstract fun getViewModelClass(): Class<VM>
+    abstract fun onReceiverScanData(scanData: BaseScanData)
 
-    abstract fun onDataResponded(data: MutableList<BaseData>)
-
-    abstract fun onStatusResponded()
+    abstract fun onReceiverScanException(scanException: ScanException)
 
     abstract fun getStatName(): String
+
+    fun startScan() {
+        mScan.startScanBroadcast()
+    }
+
+    fun stopScan() {
+        mScan.stopScanBroadcast()
+    }
 
     override fun onStart() {
         super.onStart()
