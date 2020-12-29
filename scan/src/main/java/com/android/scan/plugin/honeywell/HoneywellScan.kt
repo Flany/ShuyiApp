@@ -6,6 +6,7 @@ import android.content.IntentFilter
 import android.os.Bundle
 import com.android.scan.data.BaseScanData
 import com.android.scan.plugin.BaseScan
+import com.example.base.SyAppConfig
 import com.example.base.utils.LogUtils
 import com.google.gson.Gson
 import com.honeywell.aidc.*
@@ -67,7 +68,7 @@ class HoneywellScan private constructor() : BaseScan(), BarcodeReader.BarcodeLis
         }
     }
 
-    override fun startScanBroadcast(context: Context) {
+    override fun startScanBroadcast() {
         val bundle = Bundle()
         bundle.putBoolean(HoneywellAction.EXTRA_SCAN, true)
         bundle.putBoolean(HoneywellAction.EXTRA_AIM, true)
@@ -75,26 +76,26 @@ class HoneywellScan private constructor() : BaseScan(), BarcodeReader.BarcodeLis
         bundle.putBoolean(HoneywellAction.EXTRA_DECODE, true)
         val intent = Intent(HoneywellAction.ACTION_CONTROL_SCANNER)
         intent.putExtras(bundle)
-        context.sendBroadcast(intent)
+        SyAppConfig.applicationContext?.sendBroadcast(intent)
     }
 
-    override fun stopScanBroadcast(context: Context) {
+    override fun stopScanBroadcast() {
         val bundle = Bundle()
         bundle.putBoolean(HoneywellAction.EXTRA_SCAN, false)
         val intent = Intent(HoneywellAction.ACTION_CONTROL_SCANNER)
         intent.putExtras(bundle)
-        context.sendBroadcast(intent)
+        SyAppConfig.applicationContext?.sendBroadcast(intent)
     }
 
-    override fun registerScanReceiver(context: Context) {
-        context.registerReceiver(
+    override fun registerScanReceiver() {
+        SyAppConfig.applicationContext?.registerReceiver(
             broadcastReceiver,
             IntentFilter(HoneywellAction.ACTION_BARCODE_DATA)
         )
         val properties = Bundle()
         properties.putBoolean("DPR_DATA_INTENT", true)
         properties.putString("DPR_DATA_INTENT_ACTION", HoneywellAction.ACTION_BARCODE_DATA)
-        context.sendBroadcast(
+        SyAppConfig.applicationContext?.sendBroadcast(
             Intent(HoneywellAction.ACTION_CLAIM_SCANNER)
                 .setPackage("com.intermec.datacollectionservice")
                 .putExtra(HoneywellAction.EXTRA_SCANNER, "dcs.scanner.imager")
@@ -103,15 +104,15 @@ class HoneywellScan private constructor() : BaseScan(), BarcodeReader.BarcodeLis
         )
     }
 
-    override fun unregisterScanReceiver(context: Context) {
-        context.unregisterReceiver(broadcastReceiver)
-        context.sendBroadcast(
+    override fun unregisterScanReceiver() {
+        SyAppConfig.applicationContext?.unregisterReceiver(broadcastReceiver)
+        SyAppConfig.applicationContext?.sendBroadcast(
             Intent(HoneywellAction.ACTION_RELEASE_SCANNER)
                 .setPackage("com.intermec.datacollectionservice")
         )
     }
 
-    override fun onReceiveScanBroadcast(context: Context, intent: Intent) {
+    override fun onReceiveScanBroadcast(intent: Intent) {
         if (HoneywellAction.ACTION_BARCODE_DATA == intent.action) {
             val version = intent.getIntExtra("version", 0)
             if (version >= 1) {
