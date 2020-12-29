@@ -55,9 +55,4 @@ dependencies {
     implementation BaseDependencies.constraintLayout
     implementation BaseDependencies.viewModel
     implementation Gson.gson
-
-    //scan
-    //honeywell
-    api files('libs/DataCollection.aar')
-    implementation files('libs/MobydataSdk1.0.jar')
 }

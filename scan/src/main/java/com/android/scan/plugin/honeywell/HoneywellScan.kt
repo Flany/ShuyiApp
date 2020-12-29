@@ -8,62 +8,17 @@ import com.android.scan.plugin.BaseScan
 import com.example.base.SyAppConfig
 import com.example.base.utils.LogUtils
 import com.google.gson.Gson
-import com.honeywell.aidc.*
-import java.util.*
 
 /**
  * @author: hec@shuyilink.com
  * @date:   2020/12/23
  * @since:  HoneyWell的扫码类
  */
-class HoneywellScan private constructor() : BaseScan(), BarcodeReader.BarcodeListener {
-
-    var barcodeReader: BarcodeReader? = null
-    private var manager: AidcManager? = null
+class HoneywellScan private constructor() : BaseScan() {
 
     companion object {
         val INSTANCE: HoneywellScan by lazy {
             HoneywellScan()
-        }
-    }
-
-    override fun registerScan() {
-        if (manager != null && barcodeReader != null) {
-            return
-        }
-        AidcManager.create(SyAppConfig.applicationContext) { manager ->
-            this.manager = manager
-            try {
-                barcodeReader = manager.createBarcodeReader()
-                val properties = initProperties()
-                barcodeReader?.addBarcodeListener(this)
-                barcodeReader?.setProperties(properties)
-            } catch (e: InvalidScannerNameException) {
-                LogUtils.d(TAG, "e: ${e.message}")
-            } catch (e: Exception) {
-                LogUtils.d(TAG, "e: ${e.message}")
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        kotlin.runCatching {
-            barcodeReader?.claim()
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        kotlin.runCatching {
-            barcodeReader?.release()
-        }
-    }
-
-    override fun unregisterScan() {
-        kotlin.runCatching {
-            barcodeReader?.close()
-            manager?.close()
         }
     }
 
@@ -125,41 +80,5 @@ class HoneywellScan private constructor() : BaseScan(), BarcodeReader.BarcodeLis
                 scanCallback?.onScanSuccess(Gson().fromJson(data, BaseScanData::class.java))
             }
         }
-    }
-
-    private fun initProperties(): MutableMap<String, Any> {
-        val properties: MutableMap<String, Any> = HashMap()
-        properties[BarcodeReader.PROPERTY_CODE_128_ENABLED] = true
-        properties[BarcodeReader.PROPERTY_GS1_128_ENABLED] = true
-        properties[BarcodeReader.PROPERTY_QR_CODE_ENABLED] = true
-        properties[BarcodeReader.PROPERTY_CODE_39_ENABLED] = true
-        properties[BarcodeReader.PROPERTY_DATAMATRIX_ENABLED] = true
-        properties[BarcodeReader.PROPERTY_UPC_A_ENABLE] = true
-        properties[BarcodeReader.PROPERTY_EAN_13_ENABLED] = false
-        properties[BarcodeReader.PROPERTY_AZTEC_ENABLED] = false
-        properties[BarcodeReader.PROPERTY_CODABAR_ENABLED] = false
-        properties[BarcodeReader.PROPERTY_INTERLEAVED_25_ENABLED] = false
-        properties[BarcodeReader.PROPERTY_PDF_417_ENABLED] = false
-        // Set Max Code 39 barcode length
-        // Set Max Code 39 barcode length
-        properties[BarcodeReader.PROPERTY_CODE_39_MAXIMUM_LENGTH] = 10
-        // Turn on center decoding
-        // Turn on center decoding
-        properties[BarcodeReader.PROPERTY_CENTER_DECODE] = true
-        // Enable bad read response
-        // Enable bad read response
-        properties[BarcodeReader.PROPERTY_NOTIFICATION_BAD_READ_ENABLED] = true
-        return properties
-    }
-
-    override fun onFailureEvent(p0: BarcodeFailureEvent?) {
-        LogUtils.d(TAG, "扫码失败")
-        scanCallback?.onScanFailure(Throwable("扫码失败"))
-    }
-
-    override fun onBarcodeEvent(p0: BarcodeReadEvent?) {
-        val data = p0?.barcodeData
-        LogUtils.d(TAG, "扫码成功-按键：$data")
-        scanCallback?.onScanSuccess(Gson().fromJson(data, BaseScanData::class.java))
     }
 }

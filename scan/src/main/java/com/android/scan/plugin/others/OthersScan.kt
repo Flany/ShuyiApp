@@ -16,14 +16,6 @@ class OthersScan private constructor() : BaseScan() {
         }
     }
 
-    override fun registerScan() {
-
-    }
-
-    override fun unregisterScan() {
-
-    }
-
     override fun startScanBroadcast() {
 
     }

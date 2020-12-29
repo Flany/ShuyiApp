@@ -40,16 +40,6 @@ abstract class BaseScan : LifecycleObserver {
     protected var scanCallback: IScanCallback? = null
 
     /**
-     * SDK注册
-     */
-    abstract fun registerScan()
-
-    /**
-     * SDK注销
-     */
-    abstract fun unregisterScan()
-
-    /**
      * 开启扫码的广播
      */
     abstract fun startScanBroadcast()
@@ -77,17 +67,16 @@ abstract class BaseScan : LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
         LogUtils.d(TAG, "扫码-onStart")
-        registerScan()
         registerScanReceiver()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    open fun onResume() {
+    fun onResume() {
         LogUtils.d(TAG, "扫码-onResume")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    open fun onPause() {
+    fun onPause() {
         LogUtils.d(TAG, "扫码-onPause")
     }
 
@@ -95,7 +84,6 @@ abstract class BaseScan : LifecycleObserver {
     fun onStop() {
         LogUtils.d(TAG, "扫码-onStop")
         unregisterScanReceiver()
-        unregisterScan()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
