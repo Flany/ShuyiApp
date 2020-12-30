@@ -34,10 +34,21 @@ abstract class BaseScan : LifecycleObserver {
         }
     }
 
+    /*************************************扫码的回调事件-start***************************************/
+
     /**
      * 扫码的回调事件
      */
     protected var scanCallback: IScanCallback? = null
+
+    /**
+     * 添加扫码的回调事件
+     */
+    fun addScanCallback(scanCallback: IScanCallback) {
+        this.scanCallback = scanCallback
+    }
+
+    /**************************************扫码的回调事件-end****************************************/
 
     /**
      * SDK注册
@@ -48,6 +59,9 @@ abstract class BaseScan : LifecycleObserver {
      * SDK注销
      */
     abstract fun unregisterScan()
+
+    /************************手机和PAD也可以使用广播的模式来进行扫码界面的打开和数据的传输*******************/
+    /********************************第三方PDA，采用广播进行扫码的控制-start****************************/
 
     /**
      * 开启扫码的广播
@@ -73,6 +87,8 @@ abstract class BaseScan : LifecycleObserver {
      * 处理扫码的广播的事件
      */
     abstract fun onReceiveScanBroadcast(intent: Intent)
+
+    /**********************************第三方PDA，采用广播进行扫码的控制-end****************************/
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onStart() {
@@ -101,12 +117,5 @@ abstract class BaseScan : LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
         LogUtils.d(TAG, "扫码-onDestroy")
-    }
-
-    /**
-     * 添加扫码的回调事件
-     */
-    fun addScanCallback(scanCallback: IScanCallback) {
-        this.scanCallback = scanCallback
     }
 }
